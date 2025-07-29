@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 :root {
   --brand-gold: #cbb17b;
   --gray-text: #6a6a6a;
@@ -8,8 +9,13 @@
 }
 
 @theme {
-  --font-body: var(--font-body);
   --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --color-brand-gold: var(--brand-gold);
+  --color-gray-text: var(--gray-text);
+  --color-gray-dark: var(--gray-dark);
+  --color-gray-bg: var(--gray-bg);
+  --color-gray-cover: var(--gray-cover);
 }
 
 @layer base {
@@ -25,5 +31,10 @@
   h4 {
     font-family: var(--font-display);
     color: var(--gray-dark);
+  }
+
+  /* 固定ヘッダー対応：アンカーリンクのオフセット調整 */
+  section[id] {
+    scroll-margin-top: 80px; /* ヘッダーの高さに合わせて調整 */
   }
 }
