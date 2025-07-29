@@ -1,16 +1,27 @@
 // components/Hero.tsx
 export default function Hero() {
   return (
-    <section className="pt-24 md:pt-32 pb-16 bg-[url('/hero.jpg')] bg-cover bg-center text-white relative">
-      <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-6xl font-serif tracking-wide mb-4">
-          Floral Lumina
-        </h1>
-        <p className="text-lg md:text-xl tracking-wider">
+    <section
+      id="top"
+      className="relative bg-[url('/icons/hero.jpg')] bg-cover bg-center h-[600px] flex items-center justify-center"
+    >
+      {/* オーバーレイ（やや白くぼかす） */}
+      <div className="absolute inset-0 bg-gray-200/30" />
+
+      <div className="relative z-10 text-center px-4">
+        <p
+          className="text-white text-sm md:text-xl tracking-wider mb-2"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
           Decorate your hands with flower smartphone case
+        </p>
+        <p
+          className="text-white text-sm md:text-xl tracking-wide font-body"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          手元華やぐスマホケース
         </p>
       </div>
     </section>
-  )
+  );
 }
