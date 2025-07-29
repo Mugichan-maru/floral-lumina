@@ -2,38 +2,62 @@
 export default function News() {
   const newsItems = [
     {
-      date: "2025.01.15",
+      date: "00.00.00",
+      category: "お知らせ",
       content: "『Floral Lumina』のホームページを公開いたしました。",
     },
     {
-      date: "2025.01.10",
+      date: "00.00.00",
+      category: "お知らせ",
       content:
-        "春の新作コレクションを追加いたしました。桜をモチーフにした限定デザインも登場です。",
+        "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     },
   ];
 
   return (
-    <section id="news" className="max-w-4xl mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-serif tracking-wide mb-4 text-gray-800">
-          お知らせ
-        </h2>
-        <div className="w-20 h-1 bg-rose-400 mx-auto"></div>
-      </div>
-      <div className="space-y-6">
-        {newsItems.map((item, index) => (
-          <div key={index} className="border-l-4 border-rose-200 pl-6 py-4">
-            <div className="text-sm text-rose-500 font-medium mb-2">
-              {item.date}
-            </div>
-            <div className="text-gray-700 leading-relaxed">{item.content}</div>
-          </div>
-        ))}
-      </div>
-      <div className="text-center mt-8">
-        <button className="text-rose-500 hover:text-rose-600 text-sm uppercase tracking-wide">
-          view more
-        </button>
+    <section id="news" className="bg-white py-12 md:py-16">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+            News
+          </h2>
+          <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
+        </div>
+
+        <div className="space-y-6">
+          {newsItems.map((item, index) => (
+            <article
+              key={index}
+              className="border-b border-gray-200 pb-6 last:border-b-0"
+            >
+              {/* モバイルファースト: 縦積みレイアウト */}
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-6">
+                {/* 日付とカテゴリ - モバイルでは上部、デスクトップでは左側 */}
+                <div className="flex items-center gap-3 md:w-48 md:flex-col md:items-end md:flex-shrink-0">
+                  <time className="text-sm text-gray-text font-body md:mb-1">
+                    {item.date}
+                  </time>
+                  <span className="bg-brand-gold text-white px-2 py-1 rounded text-xs font-body md:px-3">
+                    {item.category}
+                  </span>
+                </div>
+
+                {/* コンテンツ */}
+                <div className="flex-1">
+                  <p className="text-sm leading-relaxed text-gray-dark font-body md:text-base">
+                    {item.content}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="text-center mt-8 md:mt-12">
+          <button className="text-brand-gold hover:text-gray-dark transition-colors duration-300 text-sm font-display tracking-wide uppercase">
+            view more
+          </button>
+        </div>
       </div>
     </section>
   );
