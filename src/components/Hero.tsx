@@ -3,7 +3,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative bg-[url('/icons/hero.jpg')] bg-cover bg-center h-[600px] flex items-center justify-center"
+      className="relative bg-[url('/icons/hero.jpeg')] bg-cover bg-center h-[600px] flex items-center justify-center"
     >
       {/* オーバーレイ（やや白くぼかす） */}
       <div className="absolute inset-0 bg-gray-200/30" />
