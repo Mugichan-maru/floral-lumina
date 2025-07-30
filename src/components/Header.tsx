@@ -71,7 +71,7 @@ export default function Header() {
           <img
             src="/icons/flower.svg"
             alt="Floral Lumina ロゴ"
-            className="w-6 h-6 md:w-8 md:h-8"
+            className="w-12 h-12 md:w-8 md:h-8"
           />
           <Link href="/">Floral Lumina</Link>
         </div>
@@ -169,7 +169,7 @@ export default function Header() {
               ))}
 
               <motion.div
-                className="pt-4 border-t border-gray-100"
+                className="py-2"
                 variants={itemVariants}
                 initial="closed"
                 animate="open"
