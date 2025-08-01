@@ -1,15 +1,5 @@
 // components/News.tsx
-"use client";
-import { motion } from "framer-motion";
-import {
-  useScrollAnimation,
-  fadeInUp,
-  staggerContainer,
-} from "@/hooks/useScrollAnimation";
-
 export default function News() {
-  const { ref, isInView } = useScrollAnimation(0.2);
-
   const newsItems = [
     {
       date: "00.00.00",
@@ -25,31 +15,20 @@ export default function News() {
   ];
 
   return (
-    <section id="news" className="bg-white py-12 md:py-16" ref={ref}>
+    <section id="news" className="bg-white py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-4">
-        <motion.div
-          className="text-center mb-8 md:mb-12"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={fadeInUp}
-        >
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
             News
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="space-y-6"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={staggerContainer}
-        >
+        <div className="space-y-6">
           {newsItems.map((item, index) => (
-            <motion.article
+            <article
               key={index}
               className="border-b border-gray-200 pb-6 last:border-b-0"
-              variants={fadeInUp}
             >
               {/* モバイルファースト: 縦積みレイアウト */}
               <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-6">
@@ -70,20 +49,15 @@ export default function News() {
                   </p>
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="text-center mt-8 md:mt-12"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={fadeInUp}
-        >
+        <div className="text-center mt-8 md:mt-12">
           <button className="text-brand-gold hover:text-gray-dark transition-colors duration-300 text-sm font-display tracking-wide uppercase">
             view more
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
