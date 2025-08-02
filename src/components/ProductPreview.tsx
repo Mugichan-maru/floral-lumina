@@ -29,7 +29,7 @@ const products: Product[] = [
   {
     image: "/icons/product4.jpeg",
     title: "すずらん",
-    price: "¥2,680",
+    price: "ON DISPLAY",
   },
   {
     image: "/icons/product5.jpeg",
