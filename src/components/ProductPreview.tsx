@@ -93,7 +93,7 @@ export default function ProductPreview() {
           viewport={{ once: true, amount: 0.2 }}
           variants={titleVariants}
         >
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             LINE UP
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -151,7 +151,7 @@ export default function ProductPreview() {
                   />
                 </div>
                 <div className="p-4 md:p-5">
-                  <h3 className="text-sm font-body text-gray-dark mb-2 leading-tight md:text-base font-medium">
+                  <h3 className="text-sm font-body text-gray-text mb-2 leading-tight md:text-base font-medium">
                     {product.title}
                   </h3>
                   <p className="text-brand-gold text-sm font-display font-semibold md:text-base">

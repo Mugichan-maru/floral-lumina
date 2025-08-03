@@ -22,7 +22,7 @@ export default function Charm() {
     <section className="bg-white py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             Charm
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -53,7 +53,7 @@ export default function Charm() {
 
         {/* view more ボタン */}
         <div className="text-center mt-8 md:mt-16">
-          <button className="text-brand-gold hover:text-gray-dark transition-colors duration-300 text-sm font-display tracking-wide uppercase">
+          <button className="text-brand-gold hover:text-gray-text transition-colors duration-300 text-sm font-display tracking-wide uppercase">
             view more
           </button>
         </div>

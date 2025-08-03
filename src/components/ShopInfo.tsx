@@ -4,7 +4,7 @@ export default function ShopInfo() {
     <section id="shopinfo" className="bg-white py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             Shop Info
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -24,7 +24,7 @@ export default function ShopInfo() {
             </div>
 
             {/* 店舗名 */}
-            <h3 className="text-xl font-display text-gray-dark mb-8 md:text-2xl md:mb-12">
+            <h3 className="text-xl font-display text-gray-text mb-8 md:text-2xl md:mb-12">
               Floral Lumina
             </h3>
 

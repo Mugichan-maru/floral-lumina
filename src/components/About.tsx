@@ -57,7 +57,7 @@ export default function About() {
             variants={fadeInRight}
           >
             <motion.div className="mb-8 md:mb-12" variants={fadeInUp}>
-              <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+              <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
                 About
               </h2>
               <div className="w-12 h-0.5 bg-brand-gold mx-auto md:mx-0 md:w-16"></div>
@@ -69,16 +69,16 @@ export default function About() {
               transition={{ delay: 0.2 }}
             >
               <div>
-                <h3 className="text-lg font-display text-gray-dark mb-3 md:text-xl">
+                <h3 className="text-lg font-display text-gray-text mb-3 md:text-xl">
                   Luminaについて
                 </h3>
-                <p className="text-base leading-relaxed text-brand-gold font-body md:text-lg">
+                <p className="text-base font-display leading-relaxed text-brand-gold font-body md:text-lg">
                   ネイルのように手元が華やぐスマホケース屋さん
                 </p>
               </div>
 
               <div>
-                <p className="text-sm leading-relaxed text-gray-text font-body md:text-base">
+                <p className="text-sm font-display leading-relaxed text-gray-text font-body md:text-base">
                   丁寧な仕上げと季節感を大切に、一つ一つ手作業で制作しています。
                   ギャラリーからお気に入りのデザインを見つけてください。
                 </p>
@@ -90,7 +90,7 @@ export default function About() {
               variants={fadeInUp}
               transition={{ delay: 0.4 }}
             >
-              <button className="text-brand-gold hover:text-gray-dark transition-colors duration-300 text-sm font-display tracking-wide uppercase">
+              <button className="text-brand-gold hover:text-gray-text transition-colors duration-300 text-sm font-display tracking-wide uppercase">
                 view more
               </button>
             </motion.div>

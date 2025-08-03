@@ -67,7 +67,10 @@ export default function Header() {
     <header className="w-full bg-white/95 backdrop-blur-sm shadow-sm fixed top-0 left-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* ブランド名 */}
-        <div className="flex items-center gap-2 text-xl tracking-wide text-gray-700 font-display md:text-2xl">
+        <div
+          className="flex items-center gap-2 text-xl text-gray-text font-display md:text-2xl"
+          style={{ letterSpacing: "0.1em" }}
+        >
           <img
             src="/icons/flower.svg"
             alt="Floral Lumina ロゴ"
@@ -160,7 +163,7 @@ export default function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="block text-gray-700 hover:text-rose-500 transition-colors duration-300 py-2 font-display text-lg tracking-wide"
+                    className="block text-gray-text hover:text-rose-500 transition-colors duration-300 py-2 font-display text-lg tracking-wide"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}

@@ -18,7 +18,7 @@ export default function News() {
     <section id="news" className="bg-white py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             News
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -44,7 +44,7 @@ export default function News() {
 
                 {/* コンテンツ */}
                 <div className="flex-1">
-                  <p className="text-sm leading-relaxed text-gray-dark font-body md:text-base">
+                  <p className="text-sm leading-relaxed text-gray-text font-body md:text-base">
                     {item.content}
                   </p>
                 </div>
@@ -54,7 +54,7 @@ export default function News() {
         </div>
 
         <div className="text-center mt-8 md:mt-12">
-          <button className="text-brand-gold hover:text-gray-dark transition-colors duration-300 text-sm font-display tracking-wide uppercase">
+          <button className="text-brand-gold hover:text-gray-text transition-colors duration-300 text-sm font-display tracking-wide uppercase">
             view more
           </button>
         </div>

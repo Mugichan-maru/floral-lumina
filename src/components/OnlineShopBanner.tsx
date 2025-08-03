@@ -16,14 +16,14 @@ export default function OnlineShopBanner() {
       {/* コンテンツ */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <div className="mb-6 md:mb-8">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             Online Shop
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
         </div>
 
         <div className="space-y-4 md:space-y-6">
-          <p className="text-base font-body text-gray-dark md:text-lg">
+          <p className="text-base font-body text-gray-text md:text-lg">
             商品一覧はこちら
           </p>
 

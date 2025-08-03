@@ -4,7 +4,7 @@ export default function Contact() {
     <section id="contact" className="bg-gray-50 py-12 md:py-20">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             Contact
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -12,7 +12,7 @@ export default function Contact() {
 
         <div className="text-center max-w-2xl mx-auto">
           <div className="mb-8 md:mb-12">
-            <h3 className="text-lg font-display text-gray-dark mb-4 md:text-xl md:mb-6">
+            <h3 className="text-lg font-display text-gray-text mb-4 md:text-xl md:mb-6">
               ご注文・お問い合わせ
             </h3>
             <p className="text-sm text-gray-text font-body leading-relaxed md:text-base">
