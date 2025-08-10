@@ -1,42 +1,8 @@
 // components/ProductPreview.tsx
 "use client";
 import { motion } from "framer-motion";
-
-interface Product {
-  image: string;
-  title: string;
-  price: string;
-}
-
-// 商品データのサンプル
-// 実際のデータはAPIやデータベースから取得することを想定
-const products: Product[] = [
-  {
-    image: "/icons/product1.jpeg",
-    title: "ネモフィラ",
-    price: "¥3,200",
-  },
-  {
-    image: "/icons/product2.jpeg",
-    title: "マーガレット",
-    price: "¥3,200",
-  },
-  {
-    image: "/icons/product3.jpeg",
-    title: "紫陽花",
-    price: "ON DISPLAY",
-  },
-  {
-    image: "/icons/product4.jpeg",
-    title: "すずらん",
-    price: "ON DISPLAY",
-  },
-  {
-    image: "/icons/product5.jpeg",
-    title: "向日葵",
-    price: "¥3,500",
-  },
-];
+import Link from "next/link";
+import { getAllProducts } from "@/utils/productUtils";
 
 // アニメーション用のバリアント
 const containerVariants = {
@@ -82,6 +48,9 @@ const titleVariants = {
 };
 
 export default function ProductPreview() {
+  // products.tsからデータを取得
+  const products = getAllProducts();
+
   return (
     <section className="bg-white py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
@@ -93,7 +62,7 @@ export default function ProductPreview() {
           viewport={{ once: true, amount: 0.2 }}
           variants={titleVariants}
         >
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
+          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
             LINE UP
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -108,7 +77,7 @@ export default function ProductPreview() {
           variants={containerVariants}
         >
           {/* モバイル: 横スクロール、デスクトップ: 通常グリッド */}
-          <div className="flex overflow-x-auto gap-4 pb-4 md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:pb-0">
+          <div className="flex overflow-x-auto gap-4 pb-4 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:pb-0">
             {/* スクロールバーのスタイリング */}
             <style jsx>{`
               div::-webkit-scrollbar {
@@ -127,10 +96,9 @@ export default function ProductPreview() {
               }
             `}</style>
 
-            {products.map((product, index) => (
-              <motion.a
-                key={index}
-                href="#shop"
+            {products.map((product) => (
+              <motion.div
+                key={product.id}
                 className="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex-shrink-0 w-44 md:w-auto md:flex-shrink border border-gray-100"
                 variants={itemVariants}
                 whileHover={{
@@ -143,22 +111,31 @@ export default function ProductPreview() {
                     "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                 }}
               >
-                <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-4 md:p-5">
-                  <h3 className="text-sm font-body text-gray-text mb-2 leading-tight md:text-base font-medium">
-                    {product.title}
-                  </h3>
-                  <p className="text-brand-gold text-sm font-display font-semibold md:text-base">
-                    {product.price}
-                  </p>
-                </div>
-              </motion.a>
+                <Link href={`/product/${product.id}`} className="block">
+                  <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
+                    <img
+                      src={product.images[0]}
+                      alt={product.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-4 md:p-5">
+                    <h3 className="text-sm font-body text-gray-dark mb-2 leading-tight md:text-base font-medium">
+                      {product.title}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <p className="text-brand-gold text-sm font-display font-semibold md:text-base">
+                        {product.price}
+                      </p>
+                      {!product.inStock && (
+                        <span className="text-xs text-red-500 font-body">
+                          売り切れ
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -172,8 +149,8 @@ export default function ProductPreview() {
           variants={titleVariants}
           transition={{ delay: 0.8 }}
         >
-          <a
-            href="#shop"
+          <Link
+            href="/products"
             className="inline-flex items-center gap-2 border border-brand-gold text-brand-gold rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-brand-gold hover:text-white transition-colors duration-300 md:px-8 md:py-4"
           >
             <svg
@@ -191,7 +168,7 @@ export default function ProductPreview() {
               />
             </svg>
             Online Shop
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
