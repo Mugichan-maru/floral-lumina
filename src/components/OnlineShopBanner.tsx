@@ -6,7 +6,7 @@ export default function OnlineShopBanner() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/icons/shopBanner.jpeg')`,
+          backgroundImage: "url(/icons/shopBanner.jpeg)",
         }}
       >
         {/* オーバーレイ */}
