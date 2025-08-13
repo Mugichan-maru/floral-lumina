@@ -83,7 +83,7 @@ export const products: Record<string, Product> = {
   suzuran: {
     id: "suzuran",
     title: "すずらん",
-    price: "¥2,680",
+    price: "ON DISPLAY",
     images: [
       "/icons/product4.jpeg",
       "/icons/about1.jpeg",
@@ -102,7 +102,7 @@ export const products: Record<string, Product> = {
       { name: "クリア", value: "#FFFFFF" },
       { name: "ソフトグリーン", value: "#E6FFE6" },
     ],
-    inStock: true,
+    inStock: false,
     category: "LINE UP",
   },
   sunflower: {

@@ -344,8 +344,8 @@ export default function ProductDetailPage({
                 />
               </svg>
               <div>
-                <p className="font-medium text-gray-dark">配送について</p>
-                <p>ご注文から3-5営業日でお届けします</p>
+                <p className="font-medium text-gray-dark">発送について</p>
+                <p>ご入金確認後、通常2週間程度で発送させていただきます。</p>
               </div>
             </div>
             <div className="flex items-start gap-2">
