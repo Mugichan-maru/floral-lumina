@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev:local": "next dev",
+    "dev:workers": "npx opennextjs-cloudflare && npx wrangler dev .open-next/worker",
     "build": "next build",
-    "build:cf": "opennextjs-cloudflare build",
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev"
+    "build:cf": "npx opennextjs-cloudflare",
+    "deploy": "npx opennextjs-cloudflare && npx wrangler deploy"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.6.5",
