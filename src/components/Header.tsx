@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CartButton from "./Cart/CartButton";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,8 +100,10 @@ export default function Header() {
           >
             <img src="/icons/instagram.svg" alt="" className="w-4 h-4" />
           </a>
+
+          {/* Online Shop ボタン（商品一覧への遷移） */}
           <Link
-            href="#shop"
+            href="/products"
             className="inline-flex items-center gap-1 border border-brand-gold text-brand-gold rounded-full px-4 py-1 text-sm tracking-wide hover:bg-brand-gold hover:text-white transition-colors font-display"
           >
             <svg
@@ -119,6 +122,9 @@ export default function Header() {
             </svg>
             Online Shop
           </Link>
+
+          {/* カートボタン（右端に配置） */}
+          <CartButton />
         </nav>
 
         {/* ハンバーガーメニューボタン（SP用） */}
@@ -191,6 +197,7 @@ export default function Header() {
                 </a>
               </motion.div>
 
+              {/* モバイル用Online Shopボタン */}
               <motion.div
                 variants={itemVariants}
                 initial="closed"
@@ -199,26 +206,23 @@ export default function Header() {
                 className="pt-2"
               >
                 <Link
-                  href="#shop"
-                  className="inline-flex items-center gap-2 bg-brand-gold text-white rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-opacity-90 transition-all duration-300 shadow-md"
+                  href="/products"
+                  className="block text-brand-gold hover:text-rose-500 transition-colors duration-300 py-2 font-display text-lg tracking-wide"
                   onClick={() => setIsOpen(false)}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                    />
-                  </svg>
                   Online Shop
                 </Link>
+              </motion.div>
+
+              {/* モバイル用カートボタン */}
+              <motion.div
+                variants={itemVariants}
+                initial="closed"
+                animate="open"
+                custom={menuItems.length + 2}
+                className="pt-2"
+              >
+                <CartButton />
               </motion.div>
             </div>
           </motion.div>

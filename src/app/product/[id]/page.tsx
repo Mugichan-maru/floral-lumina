@@ -26,28 +26,9 @@ export default function ProductPage() {
     setLoading(false);
   }, [params.id, router]);
 
-  const handleAddToCart = (
-    product: Product,
-    options: { color?: string; quantity: number }
-  ) => {
-    // 実際のカート追加処理をここに実装
-    console.log("カートに追加:", {
-      product: product.title,
-      color: options.color,
-      quantity: options.quantity,
-      price: product.price,
-    });
-
-    // 一時的にアラート表示
-    alert(
-      `${product.title} を ${options.quantity}個カートに追加しました！${
-        options.color ? `\nカラー: ${options.color}` : ""
-      }`
-    );
-  };
-
   const handleAddToWishlist = (product: Product) => {
     // 実際のお気に入り追加処理をここに実装
+    // 将来的にはWishlistContextを作成して管理
     alert(`${product.title} をお気に入りに追加しました！`);
   };
 
@@ -69,7 +50,6 @@ export default function ProductPage() {
   return (
     <ProductDetailPage
       product={product}
-      onAddToCart={handleAddToCart}
       onAddToWishlist={handleAddToWishlist}
     />
   );

@@ -4,24 +4,23 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Product } from "@/types/Product";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductDetailPageProps {
   product: Product;
-  onAddToCart?: (
-    product: Product,
-    options: { color?: string; quantity: number }
-  ) => void;
   onAddToWishlist?: (product: Product) => void;
 }
 
 export default function ProductDetailPage({
   product,
-  onAddToCart,
   onAddToWishlist,
 }: ProductDetailPageProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const { addItem, openCart } = useCart();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -32,15 +31,20 @@ export default function ProductDetailPage({
     },
   };
 
-  const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart(product, {
-        color: product.colors?.[selectedColor]?.name,
-        quantity,
-      });
-    } else {
-      alert(`${product.title} をカートに追加しました！`);
-    }
+  const handleAddToCart = async () => {
+    if (!product.inStock) return;
+
+    setIsAdding(true);
+
+    // カートに追加
+    addItem(product, quantity, product.colors?.[selectedColor]?.name);
+
+    // 視覚的フィードバック
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setIsAdding(false);
+
+    // カートを開く
+    openCart();
   };
 
   const handleAddToWishlist = () => {
@@ -96,14 +100,6 @@ export default function ProductDetailPage({
             <Link href="/" className="hover:text-brand-gold transition-colors">
               Home
             </Link>
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span>{product.category || "LINE UP"}</span>
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
@@ -288,12 +284,21 @@ export default function ProductDetailPage({
             <div className="space-y-3">
               <motion.button
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className="w-full bg-brand-gold text-white py-4 rounded-full font-display text-lg tracking-wide hover:bg-opacity-90 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={product.inStock ? { y: -2 } : {}}
-                whileTap={product.inStock ? { scale: 0.98 } : {}}
+                disabled={!product.inStock || isAdding}
+                className="w-full bg-brand-gold text-white py-4 rounded-full font-display text-lg tracking-wide hover:bg-opacity-90 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed relative"
+                whileHover={product.inStock && !isAdding ? { y: -2 } : {}}
+                whileTap={product.inStock && !isAdding ? { scale: 0.98 } : {}}
               >
-                {product.inStock ? "カートに追加" : "売り切れ"}
+                {isAdding ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    カートに追加中...
+                  </div>
+                ) : product.inStock ? (
+                  "カートに追加"
+                ) : (
+                  "売り切れ"
+                )}
               </motion.button>
 
               <button
