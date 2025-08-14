@@ -76,30 +76,68 @@ export default function ProductPreview() {
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          {/* モバイル: 横スクロール、デスクトップ: 通常グリッド */}
-          <div className="flex overflow-x-auto gap-4 pb-4 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:pb-0">
-            {/* スクロールバーのスタイリング */}
-            <style jsx>{`
-              div::-webkit-scrollbar {
-                height: 4px;
-              }
-              div::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 2px;
-              }
-              div::-webkit-scrollbar-thumb {
-                background: #cbb17b;
-                border-radius: 2px;
-              }
-              div::-webkit-scrollbar-thumb:hover {
-                background: #b8a066;
-              }
-            `}</style>
+          {/* モバイル専用: 横スクロール */}
+          <div className="md:hidden">
+            <div
+              className="flex gap-4 pb-4 overflow-x-auto"
+              style={{
+                width: "100%",
+                WebkitOverflowScrolling: "touch",
+              }}
+            >
+              {products.map((product) => (
+                <motion.div
+                  key={product.id}
+                  className="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                  style={{
+                    flexShrink: 0,
+                    width: "176px",
+                    minWidth: "176px",
+                    boxShadow:
+                      "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                  }}
+                  variants={itemVariants}
+                  whileHover={{
+                    y: -12,
+                    scale: 1.02,
+                    transition: { duration: 0.3 },
+                  }}
+                >
+                  <Link href={`/product/${product.id}`} className="block">
+                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
+                      <img
+                        src={product.images[0]}
+                        alt={product.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-sm font-body text-gray-dark mb-2 leading-tight font-medium">
+                        {product.title}
+                      </h3>
+                      <div className="flex items-center justify-between">
+                        <p className="text-brand-gold text-sm font-display font-semibold">
+                          {product.price}
+                        </p>
+                        {!product.inStock && (
+                          <span className="text-xs text-red-500 font-body">
+                            売り切れ
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
+          {/* デスクトップ専用: グリッドレイアウト */}
+          <div className="hidden md:grid md:grid-cols-5 md:gap-6">
             {products.map((product) => (
               <motion.div
                 key={product.id}
-                className="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex-shrink-0 w-44 md:w-auto md:flex-shrink border border-gray-100"
+                className="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
                 variants={itemVariants}
                 whileHover={{
                   y: -12,
@@ -119,12 +157,12 @@ export default function ProductPreview() {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-4 md:p-5">
-                    <h3 className="text-sm font-body text-gray-dark mb-2 leading-tight md:text-base font-medium">
+                  <div className="p-5">
+                    <h3 className="text-base font-body text-gray-dark mb-2 leading-tight font-medium">
                       {product.title}
                     </h3>
                     <div className="flex items-center justify-between">
-                      <p className="text-brand-gold text-sm font-display font-semibold md:text-base">
+                      <p className="text-brand-gold text-base font-display font-semibold">
                         {product.price}
                       </p>
                       {!product.inStock && (
@@ -171,6 +209,26 @@ export default function ProductPreview() {
           </Link>
         </motion.div>
       </div>
+
+      {/* カスタムスクロールバーのスタイル - モバイル専用 */}
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .overflow-x-auto::-webkit-scrollbar {
+            height: 4px;
+          }
+          .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+          }
+          .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #cbb17b;
+            border-radius: 2px;
+          }
+          .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #b8a066;
+          }
+        }
+      `}</style>
     </section>
   );
 }
