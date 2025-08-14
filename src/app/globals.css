@@ -19,6 +19,13 @@
 }
 
 @layer base {
+  /* ページ全体の水平スクロール防止 */
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   body {
     font-family: var(--font-body);
     background-color: var(--gray-bg);
@@ -36,5 +43,13 @@
   /* 固定ヘッダー対応：アンカーリンクのオフセット調整 */
   section[id] {
     scroll-margin-top: 80px; /* ヘッダーの高さに合わせて調整 */
+  }
+
+  /* モバイルでの横スクロール要素の制御 */
+  @media (max-width: 767px) {
+    .overflow-x-auto {
+      scrollbar-width: thin;
+      scrollbar-color: #cbb17b #f1f1f1;
+    }
   }
 }

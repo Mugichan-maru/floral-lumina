@@ -52,7 +52,7 @@ export default function ProductPreview() {
   const products = getAllProducts();
 
   return (
-    <section className="bg-white py-12 md:py-20">
+    <section className="bg-white py-12 md:py-20 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4">
         {/* タイトルセクション */}
         <motion.div
@@ -68,7 +68,7 @@ export default function ProductPreview() {
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
         </motion.div>
 
-        {/* 商品横スクロール */}
+        {/* 商品表示エリア */}
         <motion.div
           className="relative"
           initial="hidden"
@@ -77,11 +77,11 @@ export default function ProductPreview() {
           variants={containerVariants}
         >
           {/* モバイル専用: 横スクロール */}
-          <div className="md:hidden">
+          <div className="md:hidden overflow-hidden">
             <div
-              className="flex gap-4 pb-4 overflow-x-auto"
+              className="flex gap-4 pb-4 overflow-x-auto -mx-4 px-4"
               style={{
-                width: "100%",
+                scrollSnapType: "x mandatory",
                 WebkitOverflowScrolling: "touch",
               }}
             >
@@ -93,6 +93,7 @@ export default function ProductPreview() {
                     flexShrink: 0,
                     width: "176px",
                     minWidth: "176px",
+                    scrollSnapAlign: "start",
                     boxShadow:
                       "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                   }}
