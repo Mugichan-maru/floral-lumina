@@ -35,7 +35,7 @@ export default function CartButton() {
       <span className="hidden md:inline">Cart</span>
 
       {/* カートバッジ */}
-      {cartCount && cartCount > 0 && (
+      {cartCount! > 0 && (
         <motion.div
           className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1"
           initial={{ scale: 0 }}
@@ -43,7 +43,7 @@ export default function CartButton() {
           exit={{ scale: 0 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
-          {cartCount > 99 ? "99+" : cartCount}
+          {cartCount! > 99 ? "99+" : cartCount}
         </motion.div>
       )}
     </motion.button>
