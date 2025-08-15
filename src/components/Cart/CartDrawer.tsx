@@ -1,11 +1,31 @@
 // components/Cart/CartDrawer.tsx
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCart } from "@/contexts/CartContext";
+import { useShoppingCart } from "use-shopping-cart";
+import { useState, useEffect } from "react";
 import CartItem from "./CartItem";
 
 export default function CartDrawer() {
-  const { state, closeCart, clearCart } = useCart();
+  const {
+    cartDetails,
+    cartCount,
+    formattedTotalPrice,
+    clearCart,
+    redirectToCheckout,
+  } = useShoppingCart();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // CartButtonからのカスタムイベントを監視
+  useEffect(() => {
+    const handleToggleCart = () => {
+      setIsOpen(!isOpen);
+    };
+
+    window.addEventListener("toggleCart", handleToggleCart);
+    return () => window.removeEventListener("toggleCart", handleToggleCart);
+  }, [isOpen]);
+
+  const closeCart = () => setIsOpen(false);
 
   // 背景クリックでカートを閉じる
   const handleBackgroundClick = (e: React.MouseEvent) => {
@@ -14,9 +34,22 @@ export default function CartDrawer() {
     }
   };
 
+  // チェックアウト処理
+  const handleCheckout = async () => {
+    try {
+      await redirectToCheckout();
+    } catch (error) {
+      console.error("チェックアウトエラー:", error);
+      alert("決済処理でエラーが発生しました。もう一度お試しください。");
+    }
+  };
+
+  // カート商品を配列に変換
+  const cartItems = cartDetails ? Object.values(cartDetails) : [];
+
   return (
     <AnimatePresence>
-      {state.isOpen && (
+      {isOpen && (
         <>
           {/* 背景オーバーレイ */}
           <motion.div
@@ -63,7 +96,7 @@ export default function CartDrawer() {
 
             {/* カート内容 */}
             <div className="flex-1 overflow-y-auto">
-              {state.items.length === 0 ? (
+              {cartItems.length === 0 ? (
                 /* 空のカート */
                 <div className="flex flex-col items-center justify-center h-full p-8 text-center">
                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
@@ -77,7 +110,7 @@ export default function CartDrawer() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={1.5}
-                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                       />
                     </svg>
                   </div>
@@ -102,7 +135,7 @@ export default function CartDrawer() {
                 /* カートアイテム一覧 */
                 <div>
                   {/* カートクリアボタン */}
-                  {state.items.length > 0 && (
+                  {cartItems.length > 0 && (
                     <div className="p-4 border-b border-gray-200">
                       <motion.button
                         onClick={clearCart}
@@ -116,7 +149,7 @@ export default function CartDrawer() {
 
                   {/* アイテムリスト */}
                   <AnimatePresence>
-                    {state.items.map((item) => (
+                    {cartItems.map((item) => (
                       <CartItem key={item.id} item={item} />
                     ))}
                   </AnimatePresence>
@@ -125,15 +158,15 @@ export default function CartDrawer() {
             </div>
 
             {/* フッター（合計・チェックアウト） */}
-            {state.items.length > 0 && (
+            {cartItems.length > 0 && (
               <div className="border-t border-gray-200 p-4 space-y-4">
                 {/* 合計金額 */}
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-display text-gray-dark">
-                    合計 ({state.totalItems}点)
+                    合計 ({cartCount}点)
                   </span>
                   <span className="text-lg font-display font-semibold text-brand-gold">
-                    ¥{state.totalPrice.toLocaleString()}
+                    {formattedTotalPrice}
                   </span>
                 </div>
 
@@ -147,10 +180,7 @@ export default function CartDrawer() {
                   className="w-full bg-brand-gold text-white py-4 rounded-full font-display text-lg tracking-wide shadow-md"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    // チェックアウト処理をここに実装
-                    alert("チェックアウト機能は準備中です");
-                  }}
+                  onClick={handleCheckout}
                 >
                   ご注文手続きへ
                 </motion.button>

@@ -1,5 +1,18 @@
-// data/products.ts - 商品データ管理
+// data/products.ts - use-shopping-cart対応商品データ
 import { Product } from "@/types/Product";
+
+// use-shopping-cart用の商品型定義
+export interface ShoppingCartProduct {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  image: string;
+  description: string;
+  // 元の商品情報も保持
+  originalProduct: Product;
+  selectedColor?: string;
+}
 
 export const products: Record<string, Product> = {
   nemophila: {
@@ -132,3 +145,50 @@ export const products: Record<string, Product> = {
     category: "LINE UP",
   },
 };
+
+// 価格文字列を数値に変換するヘルパー関数
+export function parsePrice(priceString: string): number {
+  const match = priceString.match(/[\d,]+/);
+  if (!match) return 0;
+  return parseInt(match[0].replace(/,/g, ""), 10);
+}
+
+// 商品をuse-shopping-cart形式に変換
+export function convertToShoppingCartProduct(
+  product: Product,
+  colorIndex: number = 0
+): ShoppingCartProduct {
+  const selectedColor = product.colors?.[colorIndex];
+  const price = parsePrice(product.price);
+
+  return {
+    id: selectedColor
+      ? `${product.id}-${selectedColor.name.toLowerCase()}`
+      : product.id,
+    name: selectedColor
+      ? `${product.title} - ${selectedColor.name}`
+      : product.title,
+    price: price,
+    currency: "JPY",
+    image: product.images[0],
+    description: product.description,
+    originalProduct: product,
+    selectedColor: selectedColor?.name,
+  };
+}
+
+// 商品の全カラーバリエーションを取得
+export function getProductVariants(product: Product): ShoppingCartProduct[] {
+  if (!product.colors || product.colors.length === 0) {
+    return [convertToShoppingCartProduct(product)];
+  }
+
+  return product.colors.map((_, index) =>
+    convertToShoppingCartProduct(product, index)
+  );
+}
+
+// 商品が購入可能かチェック（価格が数値で在庫がある）
+export function isPurchasable(product: Product): boolean {
+  return product.inStock && parsePrice(product.price) > 0;
+}
