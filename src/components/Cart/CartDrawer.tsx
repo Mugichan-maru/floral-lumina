@@ -138,7 +138,7 @@ export default function CartDrawer() {
                   {cartItems.length > 0 && (
                     <div className="p-4 border-b border-gray-200">
                       <motion.button
-                        onClick={() => clearCart()}
+                        onClick={clearCart}
                         className="text-xs text-gray-500 hover:text-red-500 transition-colors font-body"
                         whileTap={{ scale: 0.95 }}
                       >
