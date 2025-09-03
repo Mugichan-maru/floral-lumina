@@ -4,8 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Product } from "@/types/Product";
-import { useShoppingCart } from "use-shopping-cart";
-import { convertToShoppingCartProduct, isPurchasable } from "@/data/products";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductDetailPageProps {
   product: Product;
@@ -21,7 +20,7 @@ export default function ProductDetailPage({
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
-  const { addItem } = useShoppingCart();
+  const { addItem, openCart } = useCart();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -33,28 +32,19 @@ export default function ProductDetailPage({
   };
 
   const handleAddToCart = async () => {
-    if (!isPurchasable(product)) return;
+    if (!product.inStock) return;
 
     setIsAdding(true);
 
-    try {
-      // use-shopping-cart用の商品データに変換
-      const cartProduct = convertToShoppingCartProduct(product, selectedColor);
+    // カートに追加
+    addItem(product, quantity, product.colors?.[selectedColor]?.name);
 
-      // カートに追加（数量指定）
-      addItem(cartProduct, { count: quantity });
+    // 視覚的フィードバック
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setIsAdding(false);
 
-      // 視覚的フィードバック
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // カートを開く（カスタムイベント）
-      window.dispatchEvent(new CustomEvent("toggleCart"));
-    } catch (error) {
-      console.error("カート追加エラー:", error);
-      alert("カートへの追加に失敗しました。もう一度お試しください。");
-    } finally {
-      setIsAdding(false);
-    }
+    // カートを開く
+    openCart();
   };
 
   const handleAddToWishlist = () => {
@@ -64,9 +54,6 @@ export default function ProductDetailPage({
       alert(`${product.title} をお気に入りに追加しました！`);
     }
   };
-
-  // 商品が購入可能かチェック
-  const canPurchase = isPurchasable(product);
 
   return (
     <div className="min-h-screen bg-white">
@@ -195,22 +182,17 @@ export default function ProductDetailPage({
               </div>
               <p className="text-sm text-gray-500 mt-2 font-body">税込み価格</p>
 
-              {/* 在庫・購入可能状況 */}
+              {/* 在庫状況 */}
               <div className="mt-3">
-                {canPurchase ? (
+                {product.inStock ? (
                   <span className="inline-flex items-center gap-1 text-green-600 text-sm font-body">
                     <div className="w-2 h-2 bg-green-600 rounded-full" />
-                    購入可能
+                    在庫あり
                   </span>
-                ) : !product.inStock ? (
+                ) : (
                   <span className="inline-flex items-center gap-1 text-red-600 text-sm font-body">
                     <div className="w-2 h-2 bg-red-600 rounded-full" />
                     売り切れ
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 text-yellow-600 text-sm font-body">
-                    <div className="w-2 h-2 bg-yellow-600 rounded-full" />
-                    展示のみ
                   </span>
                 )}
               </div>
@@ -248,7 +230,7 @@ export default function ProductDetailPage({
             )}
 
             {/* 数量選択 */}
-            {canPurchase && (
+            {product.inStock && (
               <div>
                 <h3 className="text-lg font-display text-gray-dark mb-3">
                   数量
@@ -302,22 +284,20 @@ export default function ProductDetailPage({
             <div className="space-y-3">
               <motion.button
                 onClick={handleAddToCart}
-                disabled={!canPurchase || isAdding}
+                disabled={!product.inStock || isAdding}
                 className="w-full bg-brand-gold text-white py-4 rounded-full font-display text-lg tracking-wide hover:bg-opacity-90 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed relative"
-                whileHover={canPurchase && !isAdding ? { y: -2 } : {}}
-                whileTap={canPurchase && !isAdding ? { scale: 0.98 } : {}}
+                whileHover={product.inStock && !isAdding ? { y: -2 } : {}}
+                whileTap={product.inStock && !isAdding ? { scale: 0.98 } : {}}
               >
                 {isAdding ? (
                   <div className="flex items-center justify-center gap-2">
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     カートに追加中...
                   </div>
-                ) : canPurchase ? (
+                ) : product.inStock ? (
                   "カートに追加"
-                ) : !product.inStock ? (
-                  "売り切れ"
                 ) : (
-                  "購入不可"
+                  "売り切れ"
                 )}
               </motion.button>
 

@@ -2,7 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-// import Header from "@/components/Header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getAllProducts } from "@/utils/productUtils";
 
@@ -54,7 +54,7 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* <Header /> */}
+      <Header />
 
       <main className="pt-20 md:pt-24">
         {/* ヘッダーセクション */}

@@ -1,5 +1,5 @@
 // app/page.tsx
-// import Header from "@/components/Header";
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ProductPreview from "@/components/ProductPreview";
 import News from "@/components/News";
@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* <Header /> */}
+      <Header />
       <main>
         <Hero />
         <ProductPreview />

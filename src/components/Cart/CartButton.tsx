@@ -1,15 +1,10 @@
 // components/Cart/CartButton.tsx
 "use client";
 import { motion } from "framer-motion";
-import { useShoppingCart } from "use-shopping-cart";
+import { useCart } from "@/contexts/CartContext";
 
 export default function CartButton() {
-  const { cartCount } = useShoppingCart();
-
-  const toggleCart = () => {
-    // カスタムイベントでCartDrawerに状態を伝える
-    window.dispatchEvent(new CustomEvent("toggleCart"));
-  };
+  const { state, toggleCart } = useCart();
 
   return (
     <motion.button
@@ -35,7 +30,7 @@ export default function CartButton() {
       <span className="hidden md:inline">Cart</span>
 
       {/* カートバッジ */}
-      {cartCount && cartCount > 0 && (
+      {state.totalItems > 0 && (
         <motion.div
           className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1"
           initial={{ scale: 0 }}
@@ -43,7 +38,7 @@ export default function CartButton() {
           exit={{ scale: 0 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
-          {cartCount > 99 ? "99+" : cartCount}
+          {state.totalItems > 99 ? "99+" : state.totalItems}
         </motion.div>
       )}
     </motion.button>

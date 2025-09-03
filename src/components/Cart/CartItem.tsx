@@ -1,43 +1,33 @@
 // components/Cart/CartItem.tsx
 "use client";
 import { motion } from "framer-motion";
-import { useShoppingCart } from "use-shopping-cart";
-import type { CartEntry } from "use-shopping-cart/core";
+import { CartItem as CartItemType } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext";
 
 interface CartItemProps {
-  item: CartEntry;
+  item: CartItemType;
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const { removeItem, incrementItem, decrementItem } = useShoppingCart();
+  const { removeItem, updateQuantity } = useCart();
 
-  const handleQuantityIncrease = () => {
-    incrementItem(item.id);
+  // 価格を数値に変換
+  const parsePrice = (priceString: string): number => {
+    const match = priceString.match(/[\d,]+/);
+    if (!match) return 0;
+    return parseInt(match[0].replace(/,/g, ""), 10);
   };
 
-  const handleQuantityDecrease = () => {
-    if (item.quantity <= 1) {
+  const price = parsePrice(item.product.price);
+  const totalPrice = price * item.quantity;
+
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity <= 0) {
       removeItem(item.id);
     } else {
-      decrementItem(item.id);
+      updateQuantity(item.id, newQuantity);
     }
   };
-
-  const handleRemove = () => {
-    removeItem(item.id);
-  };
-
-  // 選択されたカラー情報を取得
-  const getSelectedColor = () => {
-    if (item.product_data && "selectedColor" in item.product_data) {
-      return item.product_data.selectedColor as string;
-    }
-    // IDからカラー情報を抽出（fallback）
-    const colorMatch = item.id.match(/-(.+)$/);
-    return colorMatch ? colorMatch[1] : null;
-  };
-
-  const selectedColor = getSelectedColor();
 
   return (
     <motion.div
@@ -50,8 +40,8 @@ export default function CartItem({ item }: CartItemProps) {
       {/* 商品画像 */}
       <div className="w-16 h-20 flex-shrink-0">
         <img
-          src={item.image}
-          alt={item.name}
+          src={item.product.images[0]}
+          alt={item.product.title}
           className="w-full h-full object-cover rounded-lg"
         />
       </div>
@@ -59,26 +49,26 @@ export default function CartItem({ item }: CartItemProps) {
       {/* 商品情報 */}
       <div className="flex-1 min-w-0">
         <h3 className="text-sm font-display text-gray-dark truncate mb-1">
-          {item.name}
+          {item.product.title}
         </h3>
 
         {/* カラー情報 */}
-        {selectedColor && (
+        {item.selectedColor && (
           <p className="text-xs text-gray-500 font-body mb-2">
-            カラー: {selectedColor}
+            カラー: {item.selectedColor}
           </p>
         )}
 
         {/* 価格と数量 */}
         <div className="flex items-center justify-between">
           <div className="text-sm text-brand-gold font-display font-semibold">
-            {item.formattedValue}
+            {price > 0 ? `¥${totalPrice.toLocaleString()}` : item.product.price}
           </div>
 
           {/* 数量調整ボタン */}
           <div className="flex items-center gap-2">
             <motion.button
-              onClick={handleQuantityDecrease}
+              onClick={() => handleQuantityChange(item.quantity - 1)}
               className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-gold transition-colors"
               whileTap={{ scale: 0.9 }}
             >
@@ -102,7 +92,7 @@ export default function CartItem({ item }: CartItemProps) {
             </span>
 
             <motion.button
-              onClick={handleQuantityIncrease}
+              onClick={() => handleQuantityChange(item.quantity + 1)}
               className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-gold transition-colors"
               whileTap={{ scale: 0.9 }}
             >
@@ -124,16 +114,16 @@ export default function CartItem({ item }: CartItemProps) {
         </div>
 
         {/* 単価表示 */}
-        {item.quantity > 1 && (
+        {price > 0 && item.quantity > 1 && (
           <p className="text-xs text-gray-400 font-body mt-1">
-            単価: ¥{item.price.toLocaleString()}
+            単価: ¥{price.toLocaleString()}
           </p>
         )}
       </div>
 
       {/* 削除ボタン */}
       <motion.button
-        onClick={handleRemove}
+        onClick={() => removeItem(item.id)}
         className="w-6 h-6 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
         whileTap={{ scale: 0.9 }}
       >
