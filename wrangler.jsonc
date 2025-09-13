@@ -3,6 +3,13 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-07-01",
   "compatibility_flags": ["nodejs_compat"],
+  // Plain (non-secret) environment variables
+  "vars": {
+    // Public key can be shipped to the client
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_51RwBhYJXnckPQnr6nzyy0JKgVVAPocnzThTQbKBK9mWsYb3ulSghER955qXO9PwsJ6v370jOoLpEuus6D1NPWQUj00s1XPMpBC"
+    // Secrets like STRIPE_SECRET_KEY should NOT be committed.
+    // Set via: `wrangler secret put STRIPE_SECRET_KEY`
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"

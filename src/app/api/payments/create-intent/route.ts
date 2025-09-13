@@ -18,15 +18,7 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-    if (!/^sk_/.test(secretKey)) {
-      return NextResponse.json(
-        {
-          error: "Invalid STRIPE_SECRET_KEY",
-          hint: "Use a valid Stripe secret key starting with sk_test_ or sk_live_",
-        },
-        { status: 401 }
-      );
-    }
+    // 標準のシークレットキー（sk_）および制限付きキー（rk_）の両方を許可し、実際の権限検証は Stripe の API レスポンスに委ねる。
 
     const body = await req.json().catch(() => ({}));
     const items: Array<{ id: string; quantity: number }> = body?.items || [];
