@@ -35,7 +35,14 @@ function CheckoutForm() {
         shipping: shipping?.value?.name
           ? {
               name: shipping.value.name,
-              address: shipping.value.address as any,
+              address: shipping.value.address as {
+                line1?: string;
+                line2?: string;
+                city?: string;
+                state?: string;
+                postal_code?: string;
+                country?: string;
+              },
               phone: shipping.value.phone || undefined,
             }
           : undefined,
