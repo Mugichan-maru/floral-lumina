@@ -1,4 +1,6 @@
 // components/Contact.tsx
+import Image from "next/image";
+
 export default function Contact() {
   return (
     <section id="contact" className="bg-gray-50 py-12 md:py-20">
@@ -52,7 +54,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full border border-pink-400 text-pink-500 rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-pink-500 hover:text-white transition-colors duration-300 md:w-auto md:px-8 md:py-4"
             >
-              <img src="/icons/instagram.svg" alt="" className="w-4 h-4" />
+              <Image src="/icons/instagram.svg" alt="" width={16} height={16} className="w-4 h-4" />
               Instagram
             </a>
           </div>

@@ -2,6 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { getAllProducts } from "@/utils/productUtils";
 
 // アニメーション用のバリアント
@@ -105,11 +106,12 @@ export default function ProductPreview() {
                   }}
                 >
                   <Link href={`/product/${product.id}`} className="block">
-                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
-                      <img
+                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl relative">
+                      <Image
                         src={product.images[0]}
                         alt={product.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
                     <div className="p-4">
@@ -151,11 +153,12 @@ export default function ProductPreview() {
                 }}
               >
                 <Link href={`/product/${product.id}`} className="block">
-                  <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
-                    <img
+                  <div className="aspect-[3/4] overflow-hidden rounded-t-xl relative">
+                    <Image
                       src={product.images[0]}
                       alt={product.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-5">

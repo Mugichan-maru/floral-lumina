@@ -2,6 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getAllProducts } from "@/utils/productUtils";
@@ -127,11 +128,12 @@ export default function ProductsPage() {
                   }}
                 >
                   <Link href={`/product/${product.id}`} className="block">
-                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
-                      <img
+                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl relative">
+                      <Image
                         src={product.images[0]}
                         alt={product.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
                     <div className="p-4 md:p-6">
@@ -204,9 +206,11 @@ export default function ProductsPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 border border-pink-400 text-pink-500 rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-pink-500 hover:text-white transition-colors duration-300"
                   >
-                    <img
+                    <Image
                       src="/icons/instagram.svg"
                       alt=""
+                      width={16}
+                      height={16}
                       className="w-4 h-4"
                     />
                     お問い合わせ

@@ -1,6 +1,7 @@
 // components/Header.tsx
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CartButton from "./Cart/CartButton";
@@ -72,9 +73,11 @@ export default function Header() {
           className="flex items-center gap-2 text-xl text-gray-text font-display md:text-2xl"
           style={{ letterSpacing: "0.1em" }}
         >
-          <img
+          <Image
             src="/icons/flower.svg"
             alt="Floral Lumina ロゴ"
+            width={32}
+            height={32}
             className="w-12 h-12 md:w-8 md:h-8"
           />
           <Link href="/">Floral Lumina</Link>
@@ -98,7 +101,7 @@ export default function Header() {
             className="inline-flex items-center px-3 py-1 font-display"
             aria-label="Instagram"
           >
-            <img src="/icons/instagram.svg" alt="" className="w-4 h-4" />
+            <Image src="/icons/instagram.svg" alt="" width={16} height={16} className="w-4 h-4" />
           </a>
 
           {/* Online Shop ボタン（商品一覧への遷移） */}
@@ -192,7 +195,7 @@ export default function Header() {
                   aria-label="Instagram"
                   onClick={() => setIsOpen(false)}
                 >
-                  <img src="/icons/instagram.svg" alt="" className="w-5 h-5" />
+                  <Image src="/icons/instagram.svg" alt="" width={20} height={20} className="w-5 h-5" />
                   Instagram
                 </a>
               </motion.div>

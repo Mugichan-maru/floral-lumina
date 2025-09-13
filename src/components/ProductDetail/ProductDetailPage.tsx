@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Product } from "@/types/Product";
 import { useCart } from "@/contexts/CartContext";
 
@@ -121,16 +122,21 @@ export default function ProductDetailPage({
             transition={{ delay: 0.2 }}
           >
             {/* メイン画像 */}
-            <div className="mb-4">
-              <motion.img
+            <div className="mb-4 relative aspect-square">
+              <motion.div
                 key={selectedImage}
-                src={product.images[selectedImage]}
-                alt={`${product.title} - 画像${selectedImage + 1}`}
-                className="w-full aspect-square object-cover rounded-xl shadow-lg"
+                className="w-full h-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
-              />
+              >
+                <Image
+                  src={product.images[selectedImage]}
+                  alt={`${product.title} - 画像${selectedImage + 1}`}
+                  fill
+                  className="object-cover rounded-xl shadow-lg"
+                />
+              </motion.div>
             </div>
 
             {/* サムネイル画像 */}
@@ -140,16 +146,17 @@ export default function ProductDetailPage({
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                    className={`w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 relative ${
                       selectedImage === index
                         ? "border-brand-gold"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
-                    <img
+                    <Image
                       src={image}
                       alt={`${product.title} サムネイル ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   </button>
                 ))}

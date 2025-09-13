@@ -1,6 +1,7 @@
 // components/About.tsx
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   useScrollAnimation,
   fadeInUp,
@@ -25,25 +26,27 @@ export default function About() {
           >
             <div className="grid grid-cols-2 gap-4 max-w-sm">
               <motion.div
-                className="bg-gray-100 rounded-lg overflow-hidden shadow-md"
+                className="bg-gray-100 rounded-lg overflow-hidden shadow-md relative h-48 md:h-56"
                 variants={fadeInUp}
                 transition={{ delay: 0.2 }}
               >
-                <img
+                <Image
                   src="/icons/about1.jpeg"
                   alt="フローラルスマホケース1"
-                  className="w-full h-48 object-cover md:h-56"
+                  fill
+                  className="object-cover"
                 />
               </motion.div>
               <motion.div
-                className="bg-gray-100 rounded-lg overflow-hidden shadow-md mt-6"
+                className="bg-gray-100 rounded-lg overflow-hidden shadow-md mt-6 relative h-48 md:h-56"
                 variants={fadeInUp}
                 transition={{ delay: 0.4 }}
               >
-                <img
+                <Image
                   src="/icons/about2.jpeg"
                   alt="フローラルスマホケース2"
-                  className="w-full h-48 object-cover md:h-56"
+                  fill
+                  className="object-cover"
                 />
               </motion.div>
             </div>

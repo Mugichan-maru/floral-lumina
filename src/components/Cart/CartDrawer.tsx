@@ -23,8 +23,8 @@ export default function CartDrawer() {
       setLoading(true);
       if (state.items.length === 0) return;
       router.push("/checkout");
-    } catch (e: any) {
-      setError(e?.message || "チェックアウトでエラーが発生しました");
+    } catch (e: unknown) {
+      setError((e as Error)?.message || "チェックアウトでエラーが発生しました");
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 // components/Footer.tsx
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,9 +10,11 @@ export default function Footer() {
         <div className="text-center mb-8 md:mb-12">
           {/* 花のアイコン */}
           <div className="flex justify-center mb-2 md:mb-6">
-            <img
+            <Image
               src="/icons/flower.svg"
               alt=""
+              width={40}
+              height={40}
               className="w-24 h-24 md:w-10 md:h-10 opacity-70"
             />
           </div>
@@ -48,7 +51,7 @@ export default function Footer() {
             className="flex items-center gap-2 text-pink-500 hover:text-pink-600 transition-colors duration-300 font-display"
             aria-label="Instagram"
           >
-            <img src="/icons/instagram.svg" alt="" className="w-4 h-4" />
+            <Image src="/icons/instagram.svg" alt="" width={16} height={16} className="w-4 h-4" />
             Instagram
           </a>
 

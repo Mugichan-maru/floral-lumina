@@ -1,6 +1,7 @@
 // components/Cart/CartItem.tsx
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { CartItem as CartItemType } from "@/contexts/CartContext";
 import { useCart } from "@/contexts/CartContext";
 
@@ -38,11 +39,12 @@ export default function CartItem({ item }: CartItemProps) {
       transition={{ duration: 0.2 }}
     >
       {/* 商品画像 */}
-      <div className="w-16 h-20 flex-shrink-0">
-        <img
+      <div className="w-16 h-20 flex-shrink-0 relative">
+        <Image
           src={item.product.images[0]}
           alt={item.product.title}
-          className="w-full h-full object-cover rounded-lg"
+          fill
+          className="object-cover rounded-lg"
         />
       </div>
 

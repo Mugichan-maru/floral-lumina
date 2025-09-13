@@ -32,7 +32,14 @@ export async function POST(req: Request) {
     }
 
     // Build Stripe line_items based on server-side product data
-    const line_items: any[] = [];
+    const line_items: Array<{
+      price_data: {
+        currency: string;
+        product_data: { name: string };
+        unit_amount: number;
+      };
+      quantity: number;
+    }> = [];
     for (const item of items) {
       const p = products[item.id];
       if (!p) continue;

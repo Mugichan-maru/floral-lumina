@@ -16,7 +16,7 @@ function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [email, setEmail] = useState<string>("");
-  const [shipping, setShipping] = useState<any>(null);
+  const [shipping, setShipping] = useState<{value?: {name?: string; address?: unknown; phone?: string}} | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ function CheckoutForm() {
         shipping: shipping?.value?.name
           ? {
               name: shipping.value.name,
-              address: shipping.value.address,
+              address: shipping.value.address as any,
               phone: shipping.value.phone || undefined,
             }
           : undefined,
@@ -99,7 +99,7 @@ export default function CheckoutPage() {
     const run = async () => {
       try {
         const raw = sessionStorage.getItem("floral-lumina-cart");
-        const parsed: any[] = raw ? JSON.parse(raw) : [];
+        const parsed: Array<{product?: {id: string}; quantity: number}> = raw ? JSON.parse(raw) : [];
         if (!Array.isArray(parsed) || parsed.length === 0) {
           setError("カートが空です");
           return;
@@ -113,8 +113,8 @@ export default function CheckoutPage() {
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || "Failed to create intent");
         setClientSecret(data.clientSecret);
-      } catch (e: any) {
-        setError(e?.message || "初期化に失敗しました");
+      } catch (e: unknown) {
+        setError((e as Error)?.message || "初期化に失敗しました");
       }
     };
     run();

@@ -1,4 +1,6 @@
 // components/ShopInfo.tsx
+import Image from "next/image";
+
 export default function ShopInfo() {
   return (
     <section id="shopinfo" className="bg-white py-12 md:py-20">
@@ -16,9 +18,11 @@ export default function ShopInfo() {
           <div className="text-center md:w-1/2 md:text-left">
             {/* 花のアイコン */}
             <div className="flex justify-center mb-6 md:justify-start md:mb-8">
-              <img
+              <Image
                 src="/icons/flower.svg"
                 alt=""
+                width={64}
+                height={64}
                 className="w-12 h-12 md:w-16 md:h-16 opacity-80"
               />
             </div>
@@ -41,11 +45,12 @@ export default function ShopInfo() {
 
           {/* 右側: 画像エリア */}
           <div className="flex justify-center md:w-1/2">
-            <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md max-w-sm w-full md:max-w-md">
-              <img
+            <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md max-w-sm w-full md:max-w-md relative h-64 md:h-80">
+              <Image
                 src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=400&fit=crop&crop=center"
                 alt="おしゃれな店内インテリア"
-                className="w-full h-64 object-cover md:h-80"
+                fill
+                className="object-cover"
               />
             </div>
           </div>
