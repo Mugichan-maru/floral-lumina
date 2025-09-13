@@ -26,27 +26,29 @@ export default function About() {
           >
             <div className="grid grid-cols-2 gap-4 max-w-sm">
               <motion.div
-                className="bg-gray-100 rounded-lg overflow-hidden shadow-md relative h-48 md:h-56"
+                className="bg-gray-100 rounded-lg overflow-hidden shadow-md"
                 variants={fadeInUp}
                 transition={{ delay: 0.2 }}
               >
                 <Image
                   src="/icons/about1.jpeg"
                   alt="フローラルスマホケース1"
-                  fill
-                  className="object-cover"
+                  width={300}
+                  height={224}
+                  className="w-full h-48 md:h-56 object-cover"
                 />
               </motion.div>
               <motion.div
-                className="bg-gray-100 rounded-lg overflow-hidden shadow-md mt-6 relative h-48 md:h-56"
+                className="bg-gray-100 rounded-lg overflow-hidden shadow-md mt-6"
                 variants={fadeInUp}
                 transition={{ delay: 0.4 }}
               >
                 <Image
                   src="/icons/about2.jpeg"
                   alt="フローラルスマホケース2"
-                  fill
-                  className="object-cover"
+                  width={300}
+                  height={224}
+                  className="w-full h-48 md:h-56 object-cover"
                 />
               </motion.div>
             </div>
