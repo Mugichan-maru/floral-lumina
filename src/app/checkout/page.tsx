@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import type { AddressParam } from "@stripe/stripe-js";
 import {
   Elements,
   PaymentElement,
@@ -35,14 +36,7 @@ function CheckoutForm() {
         shipping: shipping?.value?.name
           ? {
               name: shipping.value.name,
-              address: shipping.value.address as {
-                line1?: string;
-                line2?: string;
-                city?: string;
-                state?: string;
-                postal_code?: string;
-                country?: string;
-              },
+              address: shipping.value.address as AddressParam,
               phone: shipping.value.phone || undefined,
             }
           : undefined,
