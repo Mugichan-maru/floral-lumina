@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 import React from "react";
-import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import CartItem from "./CartItem";
 
@@ -20,10 +20,15 @@ export default function CartDrawer() {
   const handleCheckout = async () => {
     try {
       setError(null);
+      if (state.items.length === 0) {
+        closeCart();
+        return;
+      }
       setLoading(true);
-      if (state.items.length === 0) return;
+      // カートを閉じたあと、チェックアウト画面へ遷移
+      closeCart();
       router.push("/checkout");
-    } catch (e: unknown) {
+    } catch (e) {
       setError((e as Error)?.message || "チェックアウトでエラーが発生しました");
     } finally {
       setLoading(false);
@@ -121,7 +126,7 @@ export default function CartDrawer() {
             {state.items.length > 0 && (
               <div className="border-t border-gray-200 p-4 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-display text-gray-800">合計（{state.totalItems}点）</span>
+                  <span className="text-lg font-display text-gray-800">合計：{state.totalItems}点</span>
                   <span className="text-lg font-display font-semibold text-brand-gold">¥{state.totalPrice.toLocaleString()}</span>
                 </div>
 
