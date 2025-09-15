@@ -1,3 +1,4 @@
+// app/checkout/page.tsx
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -13,7 +14,9 @@ import {
 import Link from "next/link";
 import { products } from "@/data/products";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
+);
 
 // Utility: parse price like "¥3,200" -> 3200
 const parsePrice = (priceString: string): number => {
@@ -26,7 +29,9 @@ function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [email, setEmail] = useState<string>("");
-  const [shipping, setShipping] = useState<{value?: {name?: string; address?: unknown; phone?: string}} | null>(null);
+  const [shipping, setShipping] = useState<{
+    value?: { name?: string; address?: unknown; phone?: string };
+  } | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +66,9 @@ function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit} className="max-w-xl w-full space-y-6">
       <div className="space-y-3">
-        <label className="block text-sm font-display text-gray-700">メールアドレス</label>
+        <label className="block text-sm font-display text-gray-700">
+          メールアドレス
+        </label>
         <LinkAuthenticationElement
           onChange={(e) => setEmail(e.value.email)}
           options={{ defaultValues: { email } }}
@@ -69,7 +76,9 @@ function CheckoutForm() {
       </div>
 
       <div className="space-y-3">
-        <label className="block text-sm font-display text-gray-700">お届け先住所</label>
+        <label className="block text-sm font-display text-gray-700">
+          お届け先住所
+        </label>
         <AddressElement
           options={{
             mode: "shipping",
@@ -81,10 +90,13 @@ function CheckoutForm() {
       </div>
 
       <div className="space-y-3">
-        <label className="block text-sm font-display text-gray-700">お支払い方法</label>
+        <label className="block text-sm font-display text-gray-700">
+          お支払い方法
+        </label>
         <PaymentElement options={{ layout: "accordion" }} />
         <p className="text-xs text-gray-500 font-body">
-          Apple Pay / Google Pay はブラウザと環境が対応している場合に表示されます。
+          Apple Pay / Google Pay
+          はブラウザと環境が対応している場合に表示されます。
         </p>
       </div>
 
@@ -104,13 +116,16 @@ function CheckoutForm() {
 export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [cart, setCart] = useState<Array<{ id: string; title: string; price: string; quantity: number }>>([]);
+  const [cart, setCart] = useState<
+    Array<{ id: string; title: string; price: string; quantity: number }>
+  >([]);
 
   useEffect(() => {
     const run = async () => {
       try {
         const raw = sessionStorage.getItem("floral-lumina-cart");
-        const parsed: Array<{product?: {id: string}; quantity: number}> = raw ? JSON.parse(raw) : [];
+        const parsed: Array<{ product?: { id: string }; quantity: number }> =
+          raw ? JSON.parse(raw) : [];
         if (!Array.isArray(parsed) || parsed.length === 0) {
           setError("カートが空です");
           return;
@@ -123,7 +138,12 @@ export default function CheckoutPage() {
             if (!id || !p) return null;
             return { id, title: p.title, price: p.price, quantity: i.quantity };
           })
-          .filter(Boolean) as Array<{ id: string; title: string; price: string; quantity: number }>;
+          .filter(Boolean) as Array<{
+          id: string;
+          title: string;
+          price: string;
+          quantity: number;
+        }>;
         setCart(summary);
 
         const items = summary.map((i) => ({ id: i.id, quantity: i.quantity }));
@@ -155,7 +175,10 @@ export default function CheckoutPage() {
   );
 
   const subtotal = useMemo(() => {
-    return cart.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
+    return cart.reduce(
+      (sum, item) => sum + parsePrice(item.price) * item.quantity,
+      0
+    );
   }, [cart]);
 
   return (
@@ -170,24 +193,34 @@ export default function CheckoutPage() {
         <div className="w-full max-w-xl mb-8 rounded-lg border border-gray-200">
           <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
             <h2 className="text-base font-display text-gray-800">ご注文内容</h2>
-            <Link href="/products" className="text-sm text-brand-gold hover:underline font-body">
+            <Link
+              href="/products"
+              className="text-sm text-brand-gold hover:underline font-body"
+            >
               変更する
             </Link>
           </div>
           <ul className="divide-y divide-gray-100">
             {cart.map((i) => (
-              <li key={i.id} className="px-4 py-3 flex items-center justify-between text-sm">
+              <li
+                key={i.id}
+                className="px-4 py-3 flex items-center justify-between text-sm"
+              >
                 <div className="text-gray-700 font-body">
                   <p className="font-display">{i.title}</p>
                   <p className="text-gray-500">数量: {i.quantity}</p>
                 </div>
-                <div className="text-gray-800 font-display">¥{(parsePrice(i.price) * i.quantity).toLocaleString()}</div>
+                <div className="text-gray-800 font-display">
+                  ¥{(parsePrice(i.price) * i.quantity).toLocaleString()}
+                </div>
               </li>
             ))}
           </ul>
           <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
             <span className="text-sm text-gray-600 font-body">小計</span>
-            <span className="text-lg font-display text-brand-gold">¥{subtotal.toLocaleString()}</span>
+            <span className="text-lg font-display text-brand-gold">
+              ¥{subtotal.toLocaleString()}
+            </span>
           </div>
         </div>
       )}
@@ -199,13 +232,18 @@ export default function CheckoutPage() {
           <Elements stripe={stripePromise!} options={elementsOptions}>
             <CheckoutForm />
           </Elements>
-          {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith("pk_test_") && (
+          {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith(
+            "pk_test_"
+          ) && (
             <p className="mt-4 text-xs text-gray-500 font-body">
               テストカード例: 4242 4242 4242 4242 / 任意の将来日 / 任意のCVC
             </p>
           )}
           <div className="mt-6 text-center">
-            <Link href="/products" className="text-sm text-gray-500 hover:text-gray-700 font-body underline">
+            <Link
+              href="/products"
+              className="text-sm text-gray-500 hover:text-gray-700 font-body underline"
+            >
               カートに戻る
             </Link>
           </div>
