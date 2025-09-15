@@ -45,7 +45,7 @@ function CheckoutForm() {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${origin}/success`,
+        return_url: `${origin}/checkout/success`,
         receipt_email: email || undefined,
         shipping: shipping?.value?.name
           ? {
@@ -229,7 +229,11 @@ export default function CheckoutPage() {
       )}
       {clientSecret && elementsOptions && (
         <div className="w-full max-w-xl">
-          <Elements stripe={stripePromise!} options={elementsOptions}>
+          <Elements
+            stripe={stripePromise!}
+            options={elementsOptions}
+            key={clientSecret}
+          >
             <CheckoutForm />
           </Elements>
           {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith(
