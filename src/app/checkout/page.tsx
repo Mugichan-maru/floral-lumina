@@ -28,6 +28,10 @@ const parsePrice = (priceString: string): number => {
 function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  useEffect(() => {
+    console.log("Stripe initialized:", !!stripe);
+    console.log("Elements initialized:", !!elements);
+  }, [stripe, elements]);
   const [email, setEmail] = useState<string>("");
   const [shipping, setShipping] = useState<{
     value?: { name?: string; address?: unknown; phone?: string };
