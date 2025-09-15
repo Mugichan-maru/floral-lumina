@@ -10,8 +10,17 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import Link from "next/link";
+import { products } from "@/data/products";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
+
+// Utility: parse price like "¥3,200" -> 3200
+const parsePrice = (priceString: string): number => {
+  const match = priceString.match(/[\d,]+/);
+  if (!match) return 0;
+  return parseInt(match[0].replace(/,/g, ""), 10);
+};
 
 function CheckoutForm() {
   const stripe = useStripe();
@@ -95,6 +104,7 @@ function CheckoutForm() {
 export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [cart, setCart] = useState<Array<{ id: string; title: string; price: string; quantity: number }>>([]);
 
   useEffect(() => {
     const run = async () => {
@@ -105,7 +115,18 @@ export default function CheckoutPage() {
           setError("カートが空です");
           return;
         }
-        const items = parsed.map((i) => ({ id: i.product?.id, quantity: i.quantity }));
+        // Build order summary (title/price from server catalog)
+        const summary = parsed
+          .map((i) => {
+            const id = i.product?.id;
+            const p = id ? products[id] : undefined;
+            if (!id || !p) return null;
+            return { id, title: p.title, price: p.price, quantity: i.quantity };
+          })
+          .filter(Boolean) as Array<{ id: string; title: string; price: string; quantity: number }>;
+        setCart(summary);
+
+        const items = summary.map((i) => ({ id: i.id, quantity: i.quantity }));
         const res = await fetch("/api/payments/create-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -133,10 +154,43 @@ export default function CheckoutPage() {
     [clientSecret]
   );
 
+  const subtotal = useMemo(() => {
+    return cart.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
+  }, [cart]);
+
   return (
     <main className="min-h-[70vh] flex flex-col items-center px-6 py-10">
       <h1 className="text-2xl font-display text-gray-dark mb-6">お支払い</h1>
-      {error && <p className="text-red-500 font-body mb-6">{error}</p>}
+      {error && (
+        <div className="w-full max-w-xl mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3">
+          <p className="text-sm text-red-600 font-body">{error}</p>
+        </div>
+      )}
+      {cart.length > 0 && (
+        <div className="w-full max-w-xl mb-8 rounded-lg border border-gray-200">
+          <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+            <h2 className="text-base font-display text-gray-800">ご注文内容</h2>
+            <Link href="/products" className="text-sm text-brand-gold hover:underline font-body">
+              変更する
+            </Link>
+          </div>
+          <ul className="divide-y divide-gray-100">
+            {cart.map((i) => (
+              <li key={i.id} className="px-4 py-3 flex items-center justify-between text-sm">
+                <div className="text-gray-700 font-body">
+                  <p className="font-display">{i.title}</p>
+                  <p className="text-gray-500">数量: {i.quantity}</p>
+                </div>
+                <div className="text-gray-800 font-display">¥{(parsePrice(i.price) * i.quantity).toLocaleString()}</div>
+              </li>
+            ))}
+          </ul>
+          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
+            <span className="text-sm text-gray-600 font-body">小計</span>
+            <span className="text-lg font-display text-brand-gold">¥{subtotal.toLocaleString()}</span>
+          </div>
+        </div>
+      )}
       {!clientSecret && !error && (
         <p className="text-gray-600 font-body">初期化中...</p>
       )}
@@ -145,6 +199,16 @@ export default function CheckoutPage() {
           <Elements stripe={stripePromise!} options={elementsOptions}>
             <CheckoutForm />
           </Elements>
+          {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith("pk_test_") && (
+            <p className="mt-4 text-xs text-gray-500 font-body">
+              テストカード例: 4242 4242 4242 4242 / 任意の将来日 / 任意のCVC
+            </p>
+          )}
+          <div className="mt-6 text-center">
+            <Link href="/products" className="text-sm text-gray-500 hover:text-gray-700 font-body underline">
+              カートに戻る
+            </Link>
+          </div>
         </div>
       )}
     </main>
