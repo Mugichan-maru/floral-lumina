@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' https://js.stripe.com",
+              "script-src 'self' 'unsafe-inline' https://js.stripe.com",
               "frame-src https://js.stripe.com",
               "img-src 'self' https://*.stripe.com data:",
               "style-src 'self' 'unsafe-inline'",
