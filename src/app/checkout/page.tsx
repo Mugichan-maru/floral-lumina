@@ -28,10 +28,6 @@ const parsePrice = (priceString: string): number => {
 function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  useEffect(() => {
-    console.log("Stripe initialized:", !!stripe);
-    console.log("Elements initialized:", !!elements);
-  }, [stripe, elements]);
   const [email, setEmail] = useState<string>("");
   const [shipping, setShipping] = useState<{
     value?: { name?: string; address?: unknown; phone?: string };
@@ -49,7 +45,8 @@ function CheckoutForm() {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${origin}/checkout/success`,
+        // Redirect to success page after payment
+        return_url: `${origin}/success`,
         receipt_email: email || undefined,
         shipping: shipping?.value?.name
           ? {
@@ -100,7 +97,7 @@ function CheckoutForm() {
         <PaymentElement options={{ layout: "accordion" }} />
         <p className="text-xs text-gray-500 font-body">
           Apple Pay / Google Pay
-          はブラウザと環境が対応している場合に表示されます。
+          は、ブラウザと環境が対応している場合に表示されます。
         </p>
       </div>
 
@@ -244,7 +241,7 @@ export default function CheckoutPage() {
             "pk_test_"
           ) && (
             <p className="mt-4 text-xs text-gray-500 font-body">
-              テストカード例: 4242 4242 4242 4242 / 任意の将来日 / 任意のCVC
+              テストカード例: 4242 4242 4242 4242 / 任意の有効期限 / 任意の CVC
             </p>
           )}
           <div className="mt-6 text-center">
