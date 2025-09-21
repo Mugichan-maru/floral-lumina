@@ -1,3 +1,5 @@
+import ViewMoreButton from "./ui/ViewMoreButton";
+
 // components/News.tsx
 export default function News() {
   const newsItems = [
@@ -54,9 +56,7 @@ export default function News() {
         </div>
 
         <div className="text-center mt-8 md:mt-12">
-          <button className="text-brand-gold hover:text-gray-text transition-colors duration-300 text-sm font-display tracking-wide uppercase">
-            view more
-          </button>
+          <ViewMoreButton />
         </div>
       </div>
     </section>

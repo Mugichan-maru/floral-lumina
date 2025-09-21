@@ -1,5 +1,6 @@
 // components/ShopInfo.tsx
 import Image from "next/image";
+import ViewMoreButton from "./ui/ViewMoreButton";
 
 export default function ShopInfo() {
   return (
@@ -34,12 +35,7 @@ export default function ShopInfo() {
 
             {/* view more ボタン */}
             <div className="space-y-3 md:space-y-4">
-              <button className="w-full border border-brand-gold text-brand-gold rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-brand-gold hover:text-white transition-colors duration-300 md:w-auto md:px-8">
-                view more
-              </button>
-              <button className="w-full border border-brand-gold text-brand-gold rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-brand-gold hover:text-white transition-colors duration-300 md:w-auto md:px-8">
-                view more
-              </button>
+              <ViewMoreButton />
             </div>
           </div>
 

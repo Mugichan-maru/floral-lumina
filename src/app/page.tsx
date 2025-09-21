@@ -16,8 +16,8 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
-        <ProductPreview />
         <News />
+        <ProductPreview />
         <About />
         <Charm />
         <OnlineShopBanner />

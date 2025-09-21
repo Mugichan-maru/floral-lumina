@@ -182,7 +182,6 @@ export default function ProductPreview() {
           </div>
         </motion.div>
 
-        {/* view more ボタン */}
         <motion.div
           className="text-center mt-8 md:mt-16"
           initial="hidden"

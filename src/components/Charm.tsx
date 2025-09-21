@@ -1,4 +1,6 @@
 // components/Charm.tsx
+import ViewMoreButton from "./ui/ViewMoreButton";
+
 const features = [
   {
     number: "01",
@@ -53,9 +55,7 @@ export default function Charm() {
 
         {/* view more ボタン */}
         <div className="text-center mt-8 md:mt-16">
-          <button className="text-brand-gold hover:text-gray-text transition-colors duration-300 text-sm font-display tracking-wide uppercase">
-            view more
-          </button>
+          <ViewMoreButton />
         </div>
       </div>
     </section>
