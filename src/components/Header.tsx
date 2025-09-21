@@ -67,20 +67,24 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white/95 backdrop-blur-sm shadow-sm fixed top-0 left-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        {/* ブランド名 */}
-        <div
-          className="flex items-center gap-2 text-xl text-gray-text font-display md:text-2xl"
-          style={{ letterSpacing: "0.1em" }}
-        >
-          <Image
-            src="/icons/flower.svg"
-            alt="Floral Lumina ロゴ"
-            width={32}
-            height={32}
-            className="w-12 h-12 md:w-8 md:h-8"
-          />
-          <Link href="/">Floral Lumina</Link>
+      <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+        {/* 左側スペーサー（モバイルでは非表示） */}
+        <div className="hidden md:block w-24"></div>
+
+        {/* 中央配置されたロゴ画像 */}
+        <div className="flex-1 flex justify-center md:justify-center">
+          <Link href="/" className="select-none group">
+            <Image
+              src="/icons/logo.png"
+              alt="Floral Lumina ロゴ"
+              width={960}
+              height={360}
+              priority
+              quality={100}
+              className="w-[240px] md:w-[320px] h-auto object-contain group-hover:opacity-80 transition-opacity duration-300"
+              style={{ imageRendering: "crisp-edges" }}
+            />
+          </Link>
         </div>
 
         {/* ナビゲーション（PC用） */}
@@ -101,7 +105,13 @@ export default function Header() {
             className="inline-flex items-center px-3 py-1 font-display"
             aria-label="Instagram"
           >
-            <Image src="/icons/instagram.svg" alt="" width={16} height={16} className="w-4 h-4" />
+            <Image
+              src="/icons/instagram.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="w-4 h-4"
+            />
           </a>
 
           {/* Online Shop ボタン（商品一覧への遷移） */}
@@ -195,7 +205,13 @@ export default function Header() {
                   aria-label="Instagram"
                   onClick={() => setIsOpen(false)}
                 >
-                  <Image src="/icons/instagram.svg" alt="" width={20} height={20} className="w-5 h-5" />
+                  <Image
+                    src="/icons/instagram.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
                   Instagram
                 </a>
               </motion.div>
