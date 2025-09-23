@@ -3,11 +3,17 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative bg-[url(/icons/hero.jpeg)] bg-cover bg-center h-[600px] flex items-center justify-center"
-      style={{ marginTop: "80px" }}
+      className="relative bg-gray-cover h-[600px] flex items-center justify-center"
+      style={{
+        marginTop: "80px",
+        backgroundImage: "url(/icons/hero.jpeg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "#C9C9C9", // フォールバック色
+      }}
     >
       {/* オーバーレイ（やや白くぼかす） */}
-      <div className="absolute inset-0 bg-gray-200/30" />
+      <div className="absolute inset-0 bg-gray-100/30" />
 
       <div className="relative z-10 text-center px-4">
         <p
