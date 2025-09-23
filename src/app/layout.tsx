@@ -1,6 +1,6 @@
 // app/layout.tsx
 import "./globals.css";
-import { Marcellus, Open_Sans } from "next/font/google";
+import { Marcellus, Noto_Sans_JP } from "next/font/google";
 import type { Metadata } from "next";
 import { CartProvider } from "@/contexts/CartContext";
 import CartDrawer from "@/components/Cart/CartDrawer";
@@ -11,7 +11,7 @@ const marcellus = Marcellus({
   variable: "--font-display",
 });
 
-const openSans = Open_Sans({
+const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   weight: ["400", "600"],
   variable: "--font-body",
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${marcellus.variable} ${openSans.variable} scroll-smooth`}
+      className={`${marcellus.variable} ${notoSansJP.variable} scroll-smooth`}
     >
       <body>
         <CartProvider>

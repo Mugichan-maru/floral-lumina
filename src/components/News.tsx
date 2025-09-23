@@ -20,10 +20,10 @@ export default function News() {
     <section id="news" className="bg-white py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
+          <h2 className=" text-brand-gold">お知らせ</h2>
           <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             News
           </h2>
-          <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
         </div>
 
         <div className="space-y-6">
