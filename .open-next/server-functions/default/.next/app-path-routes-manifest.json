@@ -3,10 +3,12 @@
   "/api/payments/create-intent/route": "/api/payments/create-intent",
   "/favicon.ico/route": "/favicon.ico",
   "/api/checkout/route": "/api/checkout",
-  "/page": "/",
   "/cancel/page": "/cancel",
-  "/success/page": "/success",
   "/products/page": "/products",
   "/checkout/page": "/checkout",
-  "/product/[id]/page": "/product/[id]"
+  "/product/[id]/page": "/product/[id]",
+  "/page": "/",
+  "/success/page": "/success",
+  "/news/[id]/page": "/news/[id]",
+  "/news/page": "/news"
 }

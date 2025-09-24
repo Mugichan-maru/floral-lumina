@@ -5,6 +5,16 @@ import Header from "@/components/Header";
 import { getAllNews } from "@/utils/newsUtils";
 import Contact from "@/components/Contact";
 
+interface NewsItem {
+  id: string;
+  date: string;
+  category: string;
+  title: string;
+  content: string;
+  excerpt?: string;
+  thumbnail?: string;
+}
+
 export const metadata = {
   title: "News - Floral Lumina",
   description: "Floral Luminaの最新ニュース・お知らせ",
@@ -14,9 +24,9 @@ export default function NewsPage() {
   const newsItems = getAllNews();
 
   // ページネーション設定
-  const itemsPerPage: number = 10;
-  const currentPage: number = 1;
-  const totalPages: number = 5; // テスト用: 5枚以上
+  const itemsPerPage = 10;
+  const currentPage = 1;
+  const totalPages = 5; // テスト用: 5枚以上
   const displayItems = newsItems.slice(0, itemsPerPage);
 
   // カテゴリー／アーカイブ
@@ -91,7 +101,7 @@ export default function NewsPage() {
 
           {/* アコーディオン */}
           <div>
-            {displayItems.map((item: any) => (
+            {displayItems.map((item: NewsItem) => (
               <details
                 key={item.id}
                 className="group border-b border-[#CBB17B] py-6"
@@ -185,7 +195,7 @@ export default function NewsPage() {
                 {(() => {
                   const pages: (number | "dots")[] = [];
                   const add = (n: number) => pages.push(n);
-                  const DOTS: "dots" = "dots";
+                  const DOTS = "dots" as const;
 
                   if (totalPages < 5) {
                     for (let i = 1; i <= totalPages; i++) add(i);
@@ -224,7 +234,6 @@ export default function NewsPage() {
 
                 <button
                   aria-label="Next page"
-                  disabled={currentPage === totalPages}
                   className="w-6 h-6 flex items-center justify-center disabled:text-gray-300 text-brand-gold"
                 >
                   <svg
