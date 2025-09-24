@@ -27,10 +27,10 @@ export default function Footer() {
         {/* ナビゲーションリンク */}
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm md:gap-8 md:mb-12 md:text-base">
           {[
-            { label: "Top", href: "#top" },
-            { label: "About", href: "#about" },
-            { label: "Q&A", href: "#qa" },
-            { label: "News", href: "#news" },
+            { label: "Top", href: "/#top" },
+            { label: "About", href: "/#about" },
+            { label: "Q&A", href: "/#qa" },
+            { label: "News", href: "/#news" },
           ].map((item) => (
             <Link
               href={item.href}
@@ -51,12 +51,18 @@ export default function Footer() {
             className="flex items-center gap-2 text-pink-500 hover:text-pink-600 transition-colors duration-300 font-display"
             aria-label="Instagram"
           >
-            <Image src="/icons/instagram.svg" alt="" width={16} height={16} className="w-4 h-4" />
+            <Image
+              src="/icons/instagram.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="w-4 h-4"
+            />
             Instagram
           </a>
 
           <Link
-            href="#shop"
+            href="/#shop"
             className="flex items-center gap-2 text-brand-gold hover:text-gray-600 transition-colors duration-300 font-display"
           >
             <svg

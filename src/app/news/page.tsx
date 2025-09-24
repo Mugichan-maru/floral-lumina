@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import { getAllNews } from "@/utils/newsUtils";
+import Contact from "@/components/Contact";
 
 export const metadata = {
   title: "News - Floral Lumina",
@@ -13,9 +14,9 @@ export default function NewsPage() {
   const newsItems = getAllNews();
 
   // ページネーション設定
-  const itemsPerPage = 10;
-  const currentPage = 1;
-  const totalPages = 5; // テスト用: 5枚以上
+  const itemsPerPage: number = 10;
+  const currentPage: number = 1;
+  const totalPages: number = 5; // テスト用: 5枚以上
   const displayItems = newsItems.slice(0, itemsPerPage);
 
   // カテゴリー／アーカイブ
@@ -247,48 +248,8 @@ export default function NewsPage() {
       </section>
 
       {/* Contactとフッター */}
-      <section className="bg-gray-50 py-12 md:py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
-            Contact
-          </h2>
-          <div className="w-12 h-0.5 bg-brand-gold mx-auto mb-8 md:w-16 md:mb-12"></div>
-
-          <div className="mb-8 md:mb-12">
-            <h3 className="text-lg font-display text-gray-text mb-4 md:text-xl md:mb-6">
-              ご注文・お問い合わせ
-            </h3>
-            <p className="text-sm text-gray-text font-body leading-relaxed md:text-base">
-              ご注文は『Online Shop』ページから、
-              <br />
-              ご不明などのお問い合わせはInstagramから承っております。
-            </p>
-          </div>
-
-          <div className="space-y-4 md:space-y-0 md:flex md:gap-6 md:justify-center">
-            <Link
-              href="/products"
-              className="flex items-center justify-center gap-2 w-full bg-brand-gold text-white rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-opacity-90 transition-all duration-300 shadow-md md:w-auto md:px-8 md:py-4"
-            >
-              Online Shop
-            </Link>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full border border-pink-400 text-pink-500 rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-pink-500 hover:text-white transition-colors duration-300 md:w-auto md:px-8 md:py-4"
-            >
-              <Image
-                src="/icons/instagram.svg"
-                alt=""
-                width={16}
-                height={16}
-                className="w-4 h-4"
-              />
-              Instagram
-            </a>
-          </div>
-        </div>
+      <section className="py-12 md:py-20">
+        <Contact />
       </section>
 
       <footer className="bg-gray-100 text-center py-8">
