@@ -67,7 +67,7 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white/95 backdrop-blur-sm shadow-sm fixed top-0 left-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* 左側スペーサー（モバイルでは非表示） */}
         <div className="hidden md:block w-24"></div>
 
@@ -81,7 +81,7 @@ export default function Header() {
               height={360}
               priority
               quality={100}
-              className="w-[240px] md:w-[320px] h-auto object-contain group-hover:opacity-80 transition-opacity duration-300"
+              className="w-[220px] md:w-[300px] h-auto object-contain group-hover:opacity-80 transition-opacity duration-300"
               style={{ imageRendering: "crisp-edges" }}
             />
           </Link>

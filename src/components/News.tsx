@@ -1,6 +1,7 @@
+// components/News.tsx
+import Link from "next/link";
 import ViewMoreButton from "./ui/ViewMoreButton";
 
-// components/News.tsx
 export default function News() {
   const newsItems = [
     {
@@ -20,7 +21,6 @@ export default function News() {
     <section id="news" className="bg-white py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
-          <h2 className=" text-brand-gold">お知らせ</h2>
           <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
             News
           </h2>
@@ -56,7 +56,9 @@ export default function News() {
         </div>
 
         <div className="text-center mt-8 md:mt-12">
-          <ViewMoreButton />
+          <Link href="/news">
+            <ViewMoreButton />
+          </Link>
         </div>
       </div>
     </section>
