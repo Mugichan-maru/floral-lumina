@@ -18,9 +18,9 @@ export default function HomePage() {
         <Hero />
         <News />
         <ProductPreview />
+        <OnlineShopBanner />
         <About />
         <Charm />
-        <OnlineShopBanner />
         <ShopInfo />
         <Contact />
       </main>

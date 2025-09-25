@@ -221,7 +221,7 @@ export default async function NewsDetailPage({
           </h3>
           <div className="flex flex-wrap justify-center gap-6 mb-6 text-sm">
             <Link
-              href="/#top"
+              href="/top"
               className="text-gray-600 hover:text-brand-gold transition-colors font-display"
             >
               Top

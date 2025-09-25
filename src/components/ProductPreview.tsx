@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllProducts } from "@/utils/productUtils";
+import { useState } from "react";
 
 // アニメーション用のバリアント
 const containerVariants = {
@@ -49,24 +50,36 @@ const titleVariants = {
 };
 
 export default function ProductPreview() {
-  // products.tsからデータを取得
   const products = getAllProducts();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const totalSlides = products.length;
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
 
   return (
-    <section className="bg-white py-12 md:py-20 overflow-hidden">
+    <section className="bg-white py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
         {/* タイトルセクション */}
         <motion.div
-          className="text-center mb-8 md:mb-16"
+          className="text-center mb-8 md:mb-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={titleVariants}
         >
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-dark md:text-3xl">
-            LINE UP
+          <p className="text-brand-gold text-sm font-body tracking-wide mb-2">
+            取り扱い商品
+          </p>
+          <h2 className="text-2xl font-display tracking-wide text-gray-dark md:text-3xl">
+            Lineup
           </h2>
-          <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
         </motion.div>
 
         {/* 商品表示エリア */}
@@ -77,161 +90,137 @@ export default function ProductPreview() {
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          {/* モバイル専用: 横スクロール */}
-          <div className="md:hidden overflow-hidden">
-            <div
-              className="flex gap-4 pb-4 overflow-x-auto -mx-4 px-4"
-              style={{
-                scrollSnapType: "x mandatory",
-                WebkitOverflowScrolling: "touch",
-              }}
+          {/* ナビゲーション矢印 - 商品エリア上部に配置 */}
+          <div className="md:hidden flex items-center mb-6 mx-10">
+            <button
+              onClick={prevSlide}
+              className="w-8 h-8 flex items-center justify-center text-brand-gold hover:text-gray-600 transition-colors"
+              disabled={currentSlide === 0}
             >
-              {products.map((product) => (
-                <motion.div
-                  key={product.id}
-                  className="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
-                  style={{
-                    flexShrink: 0,
-                    width: "176px",
-                    minWidth: "176px",
-                    scrollSnapAlign: "start",
-                    boxShadow:
-                      "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                  }}
-                  variants={itemVariants}
-                  whileHover={{
-                    y: -12,
-                    scale: 1.02,
-                    transition: { duration: 0.3 },
-                  }}
-                >
-                  <Link href={`/product/${product.id}`} className="block">
-                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl relative">
-                      <Image
-                        src={product.images[0]}
-                        alt={product.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            <button
+              onClick={nextSlide}
+              className="w-8 h-8 flex items-center justify-center text-brand-gold hover:text-gray-600 transition-colors"
+              disabled={currentSlide === totalSlides - 1}
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* モバイル: スライダー */}
+          <div className="md:hidden relative">
+            {/* スライダーコンテナ */}
+            <div className="overflow-hidden">
+              <motion.div
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{
+                  transform: `translateX(-${currentSlide * 75}%)`,
+                }}
+              >
+                {products.map((product, index) => (
+                  <div
+                    key={index}
+                    className="w-[75%] flex-shrink-0 flex justify-center px-8"
+                  >
+                    <div className="max-w-[280px] w-full">
+                      <Link href={`/product/${product.id}`} className="block">
+                        {/* 商品画像 - 正方形 */}
+                        <div className="aspect-square relative bg-gray-100 mb-4">
+                          <Image
+                            src={product.images[0]}
+                            alt={product.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+
+                        {/* 商品名と価格 - べた書き */}
+                        <div className="text-left">
+                          <h3 className="text-sm font-body text-gray-dark mb-1">
+                            {product.title}
+                          </h3>
+                          <p className="text-brand-gold text-sm font-display">
+                            {product.price}
+                          </p>
+                        </div>
+                      </Link>
                     </div>
-                    <div className="p-4">
-                      <h3 className="text-sm font-body text-gray-dark mb-2 leading-tight font-medium">
-                        {product.title}
-                      </h3>
-                      <div className="flex items-center justify-between">
-                        <p className="text-brand-gold text-sm font-display font-semibold">
-                          {product.price}
-                        </p>
-                        {!product.inStock && (
-                          <span className="text-xs text-red-500 font-body">
-                            売り切れ
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+                  </div>
+                ))}
+              </motion.div>
             </div>
           </div>
 
-          {/* デスクトップ専用: グリッドレイアウト */}
+          {/* デスクトップ: グリッドレイアウト */}
           <div className="hidden md:grid md:grid-cols-5 md:gap-6">
             {products.map((product) => (
               <motion.div
                 key={product.id}
-                className="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                className="bg-white"
                 variants={itemVariants}
                 whileHover={{
-                  y: -12,
+                  y: -8,
                   scale: 1.02,
                   transition: { duration: 0.3 },
                 }}
-                style={{
-                  boxShadow:
-                    "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                }}
               >
                 <Link href={`/product/${product.id}`} className="block">
-                  <div className="aspect-[3/4] overflow-hidden rounded-t-xl relative">
+                  {/* 商品画像 - 正方形 */}
+                  <div className="aspect-square relative bg-gray-100 mb-4">
                     <Image
                       src={product.images[0]}
                       alt={product.title}
                       fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="object-cover hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-5">
-                    <h3 className="text-base font-body text-gray-dark mb-2 leading-tight font-medium">
+
+                  {/* 商品名と価格 - べた書き */}
+                  <div className="text-center">
+                    <h3 className="text-base font-body text-gray-dark mb-2">
                       {product.title}
                     </h3>
-                    <div className="flex items-center justify-between">
-                      <p className="text-brand-gold text-base font-display font-semibold">
-                        {product.price}
-                      </p>
-                      {!product.inStock && (
-                        <span className="text-xs text-red-500 font-body">
-                          売り切れ
-                        </span>
-                      )}
-                    </div>
+                    <p className="text-brand-gold text-base font-display">
+                      {product.price}
+                    </p>
+                    {!product.inStock && (
+                      <span className="block text-xs text-red-500 font-body mt-1">
+                        売り切れ
+                      </span>
+                    )}
                   </div>
                 </Link>
               </motion.div>
             ))}
           </div>
         </motion.div>
-
-        <motion.div
-          className="text-center mt-8 md:mt-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={titleVariants}
-          transition={{ delay: 0.8 }}
-        >
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 border border-brand-gold text-brand-gold rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-brand-gold hover:text-white transition-colors duration-300 md:px-8 md:py-4"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-              />
-            </svg>
-            Online Shop
-          </Link>
-        </motion.div>
       </div>
-
-      {/* カスタムスクロールバーのスタイル - モバイル専用 */}
-      <style jsx>{`
-        @media (max-width: 767px) {
-          .overflow-x-auto::-webkit-scrollbar {
-            height: 4px;
-          }
-          .overflow-x-auto::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 2px;
-          }
-          .overflow-x-auto::-webkit-scrollbar-thumb {
-            background: #cbb17b;
-            border-radius: 2px;
-          }
-          .overflow-x-auto::-webkit-scrollbar-thumb:hover {
-            background: #b8a066;
-          }
-        }
-      `}</style>
     </section>
   );
 }
