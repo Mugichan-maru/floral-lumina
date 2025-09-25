@@ -11,17 +11,13 @@ export default function Footer() {
           {/* 花のアイコン */}
           <div className="flex justify-center mb-2 md:mb-6">
             <Image
-              src="/icons/flower.svg"
-              alt=""
-              width={40}
-              height={40}
-              className="w-24 h-24 md:w-10 md:h-10 opacity-70"
+              src="/icons/logo.png"
+              alt="Floral Lumina ロゴ"
+              width={80}
+              height={64}
+              className="h-26 md:h-auto w-64"
             />
           </div>
-
-          <h3 className="text-xl font-display tracking-wide text-gray-800 mb-2 md:text-2xl md:mb-4">
-            Floral Lumina
-          </h3>
         </div>
 
         {/* ナビゲーションリンク */}
@@ -31,6 +27,8 @@ export default function Footer() {
             { label: "About", href: "/#about" },
             { label: "Q&A", href: "/#qa" },
             { label: "News", href: "/#news" },
+            { label: "Contact", href: "/#Contact" },
+            { label: "Online Shop", href: "/#OnlineShopBanner" },
           ].map((item) => (
             <Link
               href={item.href}
@@ -56,31 +54,9 @@ export default function Footer() {
               alt=""
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="w-6 h-6"
             />
-            Instagram
           </a>
-
-          <Link
-            href="/#shop"
-            className="flex items-center gap-2 text-brand-gold hover:text-gray-600 transition-colors duration-300 font-display"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-              />
-            </svg>
-            Online Shop
-          </Link>
         </div>
 
         {/* 営業情報 */}
@@ -101,7 +77,7 @@ export default function Footer() {
         </div>
 
         {/* コピーライト */}
-        <div className="text-center text-xs text-gray-500 border-t border-gray-300 pt-6 md:text-sm md:pt-8">
+        <div className="text-center text-xs text-gray-500 border-t border-brand-gold pt-4 md:text-sm md:pt-8">
           © 2025 Floral Lumina
         </div>
       </div>

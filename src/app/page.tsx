@@ -7,6 +7,7 @@ import About from "@/components/About";
 import Charm from "@/components/Charm";
 import OnlineShopBanner from "@/components/OnlineShopBanner";
 import ShopInfo from "@/components/ShopInfo";
+import Voice from "@/components/Voice";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -22,6 +23,7 @@ export default function HomePage() {
         <About />
         <Charm />
         <ShopInfo />
+        <Voice />
         <Contact />
       </main>
       <Footer />

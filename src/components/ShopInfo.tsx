@@ -1,54 +1,75 @@
 // components/ShopInfo.tsx
 import Image from "next/image";
-import ViewMoreButton from "./ui/ViewMoreButton";
 
 export default function ShopInfo() {
   return (
-    <section id="shopinfo" className="bg-white py-12 md:py-20">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
+    <section id="shopinfo" className="relative py-12 md:py-20">
+      {/* 背景テクスチャ */}
+      <div className="absolute inset-0">
+        <Image
+          src="/banners/brand-texture.svg"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* コンテンツ */}
+      <div className="relative z-10 max-w-2xl mx-auto px-4">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-sm text-brand-gold tracking-widest font-display mb-2 md:text-base">
+            店舗情報
+          </h1>
+          <h2 className="text-2xl font-display tracking-widest text-gray-text md:text-3xl">
             Shop Info
           </h2>
-          <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
         </div>
 
-        {/* モバイル: 縦積み、デスクトップ: 横並び */}
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-16">
-          {/* 左側: 店舗情報 */}
-          <div className="text-center md:w-1/2 md:text-left">
-            {/* 花のアイコン */}
-            <div className="flex justify-center mb-6 md:justify-start md:mb-8">
+        {/* メインコンテンツ */}
+        <div className="text-center space-y-8">
+          {/* 店舗画像 */}
+          <div className="flex justify-center">
+            <div className="w-48 h-48 md:w-60 md:h-60 relative">
               <Image
-                src="/icons/flower.svg"
-                alt=""
-                width={64}
-                height={64}
-                className="w-12 h-12 md:w-16 md:h-16 opacity-80"
-              />
-            </div>
-
-            {/* 店舗名 */}
-            <h3 className="text-xl font-display text-gray-text mb-8 md:text-2xl md:mb-12">
-              Floral Lumina
-            </h3>
-
-            {/* view more ボタン */}
-            <div className="space-y-3 md:space-y-4">
-              <ViewMoreButton />
-            </div>
-          </div>
-
-          {/* 右側: 画像エリア */}
-          <div className="flex justify-center md:w-1/2">
-            <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md max-w-sm w-full md:max-w-md relative h-64 md:h-80">
-              <Image
-                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=400&fit=crop&crop=center"
-                alt="おしゃれな店内インテリア"
+                src="/banners/shop-image.svg"
+                alt="店舗イメージ"
                 fill
                 className="object-cover"
               />
             </div>
+          </div>
+
+          {/* ロゴ */}
+          <div className="flex justify-center">
+            <Image
+              src="/icons/logo.png"
+              alt="Floral Lumina ロゴ"
+              width={80}
+              height={64}
+              className="h-26 md:h-auto w-64"
+            />
+          </div>
+
+          {/* 店舗名 */}
+          <div>
+            <h3 className="text-2xl font-display text-gray-text tracking-widest md:text-2xl">
+              Floral Lumina
+            </h3>
+          </div>
+
+          {/* 営業情報 */}
+          <div className="space-y-2 text-sm text-gray-text font-body md:text-base">
+            <div>
+              <span className="text-gray-500">営業時間：</span>
+              <span>00:00〜00:00</span>
+            </div>
+            <div>
+              <span className="text-gray-500">定休日：</span>
+              <span>○曜日</span>
+            </div>
+            <p className="text-xs text-gray-500 mt-4 md:text-sm">
+              ※臨時でお休みをいただく場合がございます。
+            </p>
           </div>
         </div>
       </div>
