@@ -10,6 +10,7 @@ import ShopInfo from "@/components/ShopInfo";
 import Voice from "@/components/Voice";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import BrandImage from "@/components/BrandImage";
 
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
         <OnlineShopBanner />
         <About />
         <Charm />
+        <BrandImage />
         <ShopInfo />
         <Voice />
         <Contact />
