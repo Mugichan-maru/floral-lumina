@@ -24,7 +24,10 @@ export default function Charm() {
     <section className="bg-white py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
+          <h1 className="text-base text-brand-gold tracking-widest font-display mb-2 md:text-xl">
+            Luminaの魅力
+          </h1>
+          <h2 className="text-2xl font-display mb-4 text-gray-text md:text-3xl">
             Charm
           </h2>
           <div className="w-12 h-0.5 bg-brand-gold mx-auto md:w-16"></div>
@@ -51,11 +54,6 @@ export default function Charm() {
               </p>
             </div>
           ))}
-        </div>
-
-        {/* view more ボタン */}
-        <div className="text-center mt-8 md:mt-16">
-          <ViewMoreButton />
         </div>
       </div>
     </section>

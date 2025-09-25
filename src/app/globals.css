@@ -38,6 +38,7 @@
   h4 {
     font-family: var(--font-display);
     color: var(--gray-dark);
+    letter-spacing: 0.15em;
   }
 
   /* 固定ヘッダー対応：アンカーリンクのオフセット調整 */

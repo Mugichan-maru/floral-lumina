@@ -74,12 +74,12 @@ export default function ProductPreview() {
           viewport={{ once: true, amount: 0.2 }}
           variants={titleVariants}
         >
-          <p className="text-brand-gold text-sm font-body tracking-wide mb-2">
+          <p className="text-brand-gold text-sm font-body tracking-widest mb-2">
             取り扱い商品
           </p>
-          <h2 className="text-2xl font-display tracking-wide text-gray-dark md:text-3xl">
+          <h1 className="text-2xl font-display text-gray-dark md:text-3xl">
             Lineup
-          </h2>
+          </h1>
         </motion.div>
 
         {/* 商品表示エリア */}

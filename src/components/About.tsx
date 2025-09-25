@@ -24,11 +24,11 @@ export default function About() {
             animate={isInView ? "visible" : "hidden"}
             variants={fadeInRight}
           >
-            <h3 className="text-base text-brand-gold font-display mb-2 md:text-xl">
+            <h1 className="text-base text-brand-gold tracking-widest font-display mb-2 md:text-xl">
               Luminaについて
-            </h3>
+            </h1>
             <motion.div className="mb-8 md:mb-12" variants={fadeInUp}>
-              <h2 className="text-2xl font-display tracking-wide mb-4 text-gray-text md:text-3xl">
+              <h2 className="text-2xl font-display mb-4 text-gray-text md:text-3xl">
                 About
               </h2>
             </motion.div>
@@ -39,7 +39,7 @@ export default function About() {
               transition={{ delay: 0.2 }}
             >
               <div>
-                <p className="text-xl font-body leading-relaxed text-brand-gold font-body md:text-xl">
+                <p className="text-lg font-body leading-relaxed  tracking-widest text-brand-gold font-body md:text-xl">
                   ネイルのように
                   <br />
                   手元が華やぐスマホケース屋さん
