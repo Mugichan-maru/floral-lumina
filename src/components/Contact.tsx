@@ -12,7 +12,7 @@ export default function Contact() {
             <p className="text-brand-gold text-sm font-body tracking-wide mb-2">
               ご注文・お問い合わせ
             </p>
-            <h2 className="text-2xl font-display tracking-wide text-gray-dark">
+            <h2 className="text-2xl font-display tracking-widest text-gray-dark">
               Contact
             </h2>
           </div>
@@ -32,7 +32,7 @@ export default function Contact() {
           <div className="text-center mb-8">
             <Link
               href="/faq"
-              className="inline-flex items-center gap-2 text-gray-text hover:text-brand-gold transition-colors duration-300 text-sm font-body"
+              className="inline-flex items-center gap-2 border-b text-gray-text tracking-widest hover:text-brand-gold transition-colors duration-300 text-sm font-body"
             >
               よくあるご質問はこちら
               <svg
@@ -57,7 +57,7 @@ export default function Contact() {
             {/* Online Shopボタン */}
             <Link
               href="/#shop"
-              className="w-full bg-brand-gold text-white rounded-full px-6 py-4 text-sm font-display tracking-wide hover:bg-opacity-90 transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
+              className="w-full bg-brand-gold text-white rounded-full px-6 py-2 text-lg font-display tracking-widest hover:bg-opacity-90 transition-all duration-300 shadow-sm flex items-center relative gap-12"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ export default function Contact() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="w-15 h-8"
               >
                 <path
                   strokeLinecap="round"
@@ -81,7 +81,7 @@ export default function Contact() {
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full border-2 border-gray-300 text-gray-text rounded-full px-6 py-4 text-sm font-display tracking-wide hover:border-brand-gold hover:text-brand-gold transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full border-2 border-gray-300 text-gray-text rounded-full px-6 py-2 text-lg font-display tracking-widest hover:border-brand-gold hover:text-brand-gold transition-all duration-300 flex items-center relative gap-12"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ export default function Contact() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="w-15 h-8"
               >
                 <path
                   strokeLinecap="round"
