@@ -56,7 +56,7 @@ export default function Contact() {
           <div className="space-y-4">
             {/* Online Shopボタン */}
             <Link
-              href="/#shop"
+              href="/products"
               className="w-full bg-brand-gold text-white rounded-full px-6 py-2 text-lg font-display tracking-widest hover:bg-opacity-90 transition-all duration-300 shadow-sm flex items-center relative gap-12"
             >
               <svg

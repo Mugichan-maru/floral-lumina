@@ -8,7 +8,7 @@ export default function OnlineShopBanner() {
   return (
     <section className="py-6 md:py-10">
       <Link
-        href="/shop"
+        href="/products"
         className="group block mx-auto w-[335px] md:w-[640px]"
         aria-label="Floral Lumina Online Shop（商品一覧はこちら）"
       >

@@ -3,13 +3,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import CartButton from "./Cart/CartButton";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // ホームページ以外の場合は絶対パスにする
+  const getHref = (hash: string) => {
+    return pathname === "/" ? hash : `/${hash}`;
+  };
 
   // ハンバーガーアイコンのライン用のバリアント
   const lineVariants = {
@@ -59,10 +66,10 @@ export default function Header() {
   };
 
   const menuItems = [
-    { label: "Top", href: "#top" },
-    { label: "About", href: "#about" },
-    { label: "Q&A", href: "#qa" },
-    { label: "News", href: "#news" },
+    { label: "Top", href: getHref("#top") },
+    { label: "About", href: getHref("#about") },
+    { label: "Q&A", href: getHref("#qa") },
+    { label: "News", href: getHref("#news") },
   ];
 
   return (

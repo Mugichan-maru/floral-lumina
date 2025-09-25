@@ -16,7 +16,7 @@ export default function Footer() {
       { label: "Contact", href: "/#contact" },
     ],
     [
-      { label: "Online Shop", href: "/#shop" },
+      { label: "Online Shop", href: "/products" },
       { label: "特定商取引法", href: "/tokusho" },
       { label: "カート", href: "/cart" },
     ],
