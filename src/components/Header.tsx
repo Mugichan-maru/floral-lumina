@@ -1,68 +1,101 @@
-// components/Header.tsx
+// components/Header.tsx - 最適化版
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import CartButton from "./Cart/CartButton";
+
+// ハンバーガーアイコンを独立したコンポーネントに分離
+const HamburgerIcon = memo(
+  ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => {
+    const lineVariants = {
+      closed: { rotate: 0, y: 0 },
+      open: (custom: number) => ({
+        rotate: custom === 1 ? 45 : custom === 3 ? -45 : 0,
+        y: custom === 1 ? 8 : custom === 3 ? -8 : 0,
+        opacity: custom === 2 ? 0 : 1,
+      }),
+    };
+
+    return (
+      <motion.button
+        className="md:hidden w-6 h-6 flex flex-col justify-center items-center gap-1.5"
+        onClick={onClick}
+        aria-label="Toggle menu"
+        whileTap={{ scale: 0.95 }}
+      >
+        {[1, 2, 3].map((line) => (
+          <motion.span
+            key={line}
+            className="w-6 h-0.5 bg-gray-600 block"
+            variants={lineVariants}
+            initial="closed"
+            animate={isOpen ? "open" : "closed"}
+            custom={line}
+            transition={{ duration: 0.2 }} // 短縮
+          />
+        ))}
+      </motion.button>
+    );
+  }
+);
+
+// メニューアイテムを独立したコンポーネントに分離
+const MenuItem = memo(
+  ({
+    item,
+    index,
+    onClick,
+  }: {
+    item: { label: string; href: string };
+    index: number;
+    onClick: () => void;
+  }) => (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.2 }} // delay短縮
+    >
+      <Link
+        href={item.href}
+        className="block text-gray-text hover:text-rose-500 transition-colors duration-200 py-2 font-display text-lg tracking-wide"
+        onClick={onClick}
+      >
+        {item.label}
+      </Link>
+    </motion.div>
+  )
+);
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+  const closeMenu = useCallback(() => setIsOpen(false), []);
 
   // ホームページ以外の場合は絶対パスにする
-  const getHref = (hash: string) => {
-    return pathname === "/" ? hash : `/${hash}`;
-  };
-
-  // ハンバーガーアイコンのライン用のバリアント
-  const lineVariants = {
-    closed: {
-      rotate: 0,
-      y: 0,
+  const getHref = useCallback(
+    (hash: string) => {
+      return pathname === "/" ? hash : `/${hash}`;
     },
-    open: (custom: number) => ({
-      rotate: custom === 1 ? 45 : custom === 3 ? -45 : 0,
-      y: custom === 1 ? 8 : custom === 3 ? -8 : 0,
-      opacity: custom === 2 ? 0 : 1,
-    }),
-  };
+    [pathname]
+  );
 
-  // モバイルメニューのバリアント
+  // 簡略化されたメニューアニメーション
   const menuVariants = {
     closed: {
       opacity: 0,
       height: 0,
-      transition: {
-        duration: 0.3,
-      },
+      transition: { duration: 0.2 }, // 短縮
     },
     open: {
       opacity: 1,
       height: "auto",
-      transition: {
-        duration: 0.3,
-      },
+      transition: { duration: 0.2 }, // 短縮
     },
-  };
-
-  // メニューアイテムのバリアント
-  const itemVariants = {
-    closed: {
-      opacity: 0,
-      x: -20,
-    },
-    open: (custom: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: custom * 0.1,
-        duration: 0.3,
-      },
-    }),
   };
 
   const menuItems = [
@@ -121,7 +154,7 @@ export default function Header() {
             />
           </a>
 
-          {/* Online Shop ボタン（商品一覧への遷移） */}
+          {/* Online Shop ボタン */}
           <Link
             href="/products"
             className="inline-flex items-center gap-1 border border-brand-gold text-brand-gold rounded-full px-4 py-1 text-sm tracking-wide hover:bg-brand-gold hover:text-white transition-colors font-display"
@@ -143,74 +176,48 @@ export default function Header() {
             Online Shop
           </Link>
 
-          {/* カートボタン（右端に配置） */}
           <CartButton />
         </nav>
 
-        {/* ハンバーガーメニューボタン（SP用） */}
-        <motion.button
-          className="md:hidden w-6 h-6 flex flex-col justify-center items-center gap-1.5"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-          whileTap={{ scale: 0.95 }}
-        >
-          {[1, 2, 3].map((line) => (
-            <motion.span
-              key={line}
-              className="w-6 h-0.5 bg-gray-600 block"
-              variants={lineVariants}
-              initial="closed"
-              animate={isOpen ? "open" : "closed"}
-              custom={line}
-              transition={{ duration: 0.3 }}
-            />
-          ))}
-        </motion.button>
+        {/* ハンバーガーメニューボタン */}
+        <HamburgerIcon isOpen={isOpen} onClick={toggleMenu} />
       </div>
 
-      {/* モバイル用メニュー */}
+      {/* モバイル用メニュー - backdrop-blurを削除してパフォーマンス改善 */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden bg-white/98 backdrop-blur-sm shadow-lg"
+            className="md:hidden bg-white/98 shadow-lg" // backdrop-blur-sm削除
             variants={menuVariants}
             initial="closed"
             animate="open"
             exit="closed"
           >
-            <div className="px-6 py-6 space-y-6">
+            <div className="px-6 py-6 space-y-4">
+              {" "}
+              {/* space-y短縮 */}
               {menuItems.map((item, index) => (
-                <motion.div
+                <MenuItem
                   key={item.label}
-                  variants={itemVariants}
-                  initial="closed"
-                  animate="open"
-                  custom={index}
-                >
-                  <Link
-                    href={item.href}
-                    className="block text-gray-text hover:text-rose-500 transition-colors duration-300 py-2 font-display text-lg tracking-wide"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
+                  item={item}
+                  index={index}
+                  onClick={closeMenu}
+                />
               ))}
-
+              {/* Instagram Link - 簡略化 */}
               <motion.div
                 className="py-2"
-                variants={itemVariants}
-                initial="closed"
-                animate="open"
-                custom={menuItems.length}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: menuItems.length * 0.05, duration: 0.2 }}
               >
                 <a
                   href="https://www.instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-pink-500 hover:text-pink-600 transition-colors duration-300 py-3 font-display text-base"
+                  className="flex items-center gap-3 text-pink-500 hover:text-pink-600 transition-colors duration-200 py-3 font-display text-base"
                   aria-label="Instagram"
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeMenu}
                 >
                   <Image
                     src="/icons/instagram.svg"
@@ -222,30 +229,32 @@ export default function Header() {
                   Instagram
                 </a>
               </motion.div>
-
-              {/* モバイル用Online Shopボタン */}
+              {/* Online Shop */}
               <motion.div
-                variants={itemVariants}
-                initial="closed"
-                animate="open"
-                custom={menuItems.length + 1}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: (menuItems.length + 1) * 0.05,
+                  duration: 0.2,
+                }}
                 className="pt-2"
               >
                 <Link
                   href="/products"
-                  className="block text-brand-gold hover:text-rose-500 transition-colors duration-300 py-2 font-display text-lg tracking-wide"
-                  onClick={() => setIsOpen(false)}
+                  className="block text-brand-gold hover:text-rose-500 transition-colors duration-200 py-2 font-display text-lg tracking-wide"
+                  onClick={closeMenu}
                 >
                   Online Shop
                 </Link>
               </motion.div>
-
-              {/* モバイル用カートボタン */}
+              {/* Cart Button */}
               <motion.div
-                variants={itemVariants}
-                initial="closed"
-                animate="open"
-                custom={menuItems.length + 2}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: (menuItems.length + 2) * 0.05,
+                  duration: 0.2,
+                }}
                 className="pt-2"
               >
                 <CartButton />
