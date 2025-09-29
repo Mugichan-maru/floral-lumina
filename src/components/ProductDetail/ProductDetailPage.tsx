@@ -16,13 +16,9 @@ import "swiper/css/pagination";
 
 interface ProductDetailPageProps {
   product: Product;
-  onAddToWishlist?: (product: Product) => void;
 }
 
-export default function ProductDetailPage({
-  product,
-  onAddToWishlist,
-}: ProductDetailPageProps) {
+export default function ProductDetailPage({ product }: ProductDetailPageProps) {
   const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
