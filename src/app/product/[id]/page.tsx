@@ -1,4 +1,3 @@
-// app/product/[id]/page.tsx - 動的ルーティングページ
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -26,12 +25,6 @@ export default function ProductPage() {
     setLoading(false);
   }, [params.id, router]);
 
-  const handleAddToWishlist = (product: Product) => {
-    // 実際のお気に入り追加処理をここに実装
-    // 将来的にはWishlistContextを作成して管理
-    alert(`${product.title} をお気に入りに追加しました！`);
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -47,10 +40,5 @@ export default function ProductPage() {
     return null; // 404ページへのリダイレクト処理済み
   }
 
-  return (
-    <ProductDetailPage
-      product={product}
-      onAddToWishlist={handleAddToWishlist}
-    />
-  );
+  return <ProductDetailPage product={product} />;
 }
