@@ -54,14 +54,6 @@ export default function ProductDetailPage({
     openCart();
   };
 
-  const handleAddToWishlist = () => {
-    if (onAddToWishlist) {
-      onAddToWishlist(product);
-    } else {
-      alert(`${product.title} をお気に入りに追加しました！`);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white">
       {/* ヘッダー部分 */}
