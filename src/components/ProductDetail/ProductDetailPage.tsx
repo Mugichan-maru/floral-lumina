@@ -6,6 +6,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types/Product";
 import { useCart } from "@/contexts/CartContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+
+// Swiperのスタイルをインポート
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 interface ProductDetailPageProps {
   product: Product;
@@ -16,7 +23,6 @@ export default function ProductDetailPage({
   product,
   onAddToWishlist,
 }: ProductDetailPageProps) {
-  const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
@@ -114,54 +120,121 @@ export default function ProductDetailPage({
 
         {/* メインコンテンツ */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-          {/* 左側: 商品画像 */}
+          {/* 左側: 商品画像スライダー */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
             transition={{ delay: 0.2 }}
           >
-            {/* メイン画像 */}
-            <div className="mb-4 relative aspect-square">
-              <motion.div
-                key={selectedImage}
+            <div className="relative aspect-square product-image-swiper">
+              <Swiper
+                modules={[Navigation, Pagination]}
+                navigation={{
+                  nextEl: ".swiper-button-next-custom",
+                  prevEl: ".swiper-button-prev-custom",
+                }}
+                pagination={{
+                  clickable: true,
+                  bulletClass: "swiper-pagination-bullet-custom",
+                  bulletActiveClass: "swiper-pagination-bullet-active-custom",
+                }}
+                loop={product.images.length > 1}
                 className="w-full h-full"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
               >
-                <Image
-                  src={product.images[selectedImage]}
-                  alt={`${product.title} - 画像${selectedImage + 1}`}
-                  fill
-                  className="object-cover rounded-xl shadow-lg"
-                />
-              </motion.div>
+                {product.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={image}
+                        alt={`${product.title} - 画像${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              {/* カスタム矢印ボタン（複数画像がある場合のみ） */}
+              {product.images.length > 1 && (
+                <>
+                  <button className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100 z-10">
+                    <svg
+                      className="w-5 h-5 text-gray-800"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                  <button className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100 z-10">
+                    <svg
+                      className="w-5 h-5 text-gray-800"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
             </div>
 
-            {/* サムネイル画像 */}
-            {product.images.length > 1 && (
-              <div className="flex gap-3 justify-center">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 relative ${
-                      selectedImage === index
-                        ? "border-brand-gold"
-                        : "border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${product.title} サムネイル ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* カスタムページネーションスタイル */}
+            <style jsx global>{`
+              .product-image-swiper {
+                position: relative;
+              }
+
+              .product-image-swiper .swiper {
+                width: 100%;
+                height: 100%;
+              }
+
+              .product-image-swiper:hover .swiper-button-prev-custom,
+              .product-image-swiper:hover .swiper-button-next-custom {
+                opacity: 1;
+              }
+
+              .product-image-swiper .swiper-pagination {
+                bottom: 16px !important;
+              }
+
+              .swiper-pagination-bullet-custom {
+                width: 8px;
+                height: 8px;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                transition: all 0.3s;
+                cursor: pointer;
+                display: inline-block;
+                margin: 0 4px;
+              }
+
+              .swiper-pagination-bullet-custom:hover {
+                background: rgba(255, 255, 255, 0.75);
+              }
+
+              .swiper-pagination-bullet-active-custom {
+                width: 32px;
+                height: 8px;
+                background: white;
+                border-radius: 4px;
+              }
+            `}</style>
           </motion.div>
 
           {/* 右側: 商品情報 */}
@@ -174,7 +247,7 @@ export default function ProductDetailPage({
           >
             {/* 商品名・価格 */}
             <div>
-              <h1 className="text-2xl md:text-3xl font-display text-gray-dark mb-3">
+              <h1 className="text-2xl md:text-3xl font-body text-gray-dark mb-3">
                 {product.title}
               </h1>
               <div className="flex items-center gap-3">
@@ -187,7 +260,6 @@ export default function ProductDetailPage({
                   </p>
                 )}
               </div>
-              <p className="text-sm text-gray-500 mt-2 font-body">税込み価格</p>
 
               {/* 在庫状況 */}
               <div className="mt-3">
@@ -212,35 +284,31 @@ export default function ProductDetailPage({
               </p>
             </div>
 
-            {/* カラー選択 */}
+            {/* カラー選択 - セレクトボックス */}
             {product.colors && product.colors.length > 0 && (
               <div>
-                <h3 className="text-lg font-display text-gray-dark mb-3">
-                  カラー: {product.colors[selectedColor].name}
+                <h3 className="text-lg font-display text-brand-gold mb-3">
+                  カラー
                 </h3>
-                <div className="flex gap-3">
+                <select
+                  value={selectedColor}
+                  onChange={(e) => setSelectedColor(Number(e.target.value))}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg font-body text-gray-dark focus:border-brand-gold focus:outline-none transition-colors cursor-pointer"
+                >
                   {product.colors.map((color, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedColor(index)}
-                      className={`w-10 h-10 rounded-full border-2 transition-all duration-300 ${
-                        selectedColor === index
-                          ? "border-brand-gold scale-110"
-                          : "border-gray-300 hover:border-gray-400"
-                      }`}
-                      style={{ backgroundColor: color.value }}
-                      title={color.name}
-                    />
+                    <option key={index} value={index}>
+                      {color.name}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
             )}
 
             {/* 数量選択 */}
             {product.inStock && (
               <div>
-                <h3 className="text-lg font-display text-gray-dark mb-3">
-                  数量
+                <h3 className="text-lg font-display text-brand-gold mb-3">
+                  購入数
                 </h3>
                 <div className="flex items-center gap-3">
                   <button
@@ -289,6 +357,27 @@ export default function ProductDetailPage({
 
             {/* 購入ボタン */}
             <div className="space-y-3">
+              {/* カートに入れるボタン */}
+              <motion.button
+                onClick={handleAddToCart}
+                disabled={!product.inStock || isAdding}
+                className="w-full bg-gray-400 text-white py-4 rounded-full font-display text-lg tracking-wide hover:bg-gray-500 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed relative"
+                whileHover={product.inStock && !isAdding ? { y: -2 } : {}}
+                whileTap={product.inStock && !isAdding ? { scale: 0.98 } : {}}
+              >
+                {isAdding ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    処理中...
+                  </div>
+                ) : product.inStock ? (
+                  "カートに入れる"
+                ) : (
+                  "売り切れ"
+                )}
+              </motion.button>
+
+              {/* 購入するボタン */}
               <motion.button
                 onClick={handleAddToCart}
                 disabled={!product.inStock || isAdding}
@@ -296,50 +385,24 @@ export default function ProductDetailPage({
                 whileHover={product.inStock && !isAdding ? { y: -2 } : {}}
                 whileTap={product.inStock && !isAdding ? { scale: 0.98 } : {}}
               >
-                {isAdding ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    カートに追加中...
-                  </div>
-                ) : product.inStock ? (
-                  "カートに追加"
-                ) : (
-                  "売り切れ"
-                )}
+                {product.inStock ? "購入する" : "売り切れ"}
               </motion.button>
-
-              <button
-                onClick={handleAddToWishlist}
-                className="w-full border border-brand-gold text-brand-gold py-4 rounded-full font-display text-lg tracking-wide hover:bg-brand-gold hover:text-white transition-colors duration-300"
-              >
-                お気に入りに追加
-              </button>
             </div>
-
-            {/* 商品特徴 */}
-            {product.features.length > 0 && (
-              <div>
-                <h3 className="text-lg font-display text-gray-dark mb-4">
-                  商品の特徴
-                </h3>
-                <ul className="space-y-2">
-                  {product.features.map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center gap-2 text-gray-text font-body"
-                    >
-                      <div className="w-1.5 h-1.5 bg-brand-gold rounded-full flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </motion.div>
         </div>
 
+        {/* 商品説明 */}
+        <div className="mt-12 md:mt-16 border-t border-b border-gray-200 py-8">
+          <h3 className="text-lg font-display text-brand-gold mb-4">
+            商品説明
+          </h3>
+          <p className="text-gray-text leading-relaxed font-body">
+            {product.description}
+          </p>
+        </div>
+
         {/* 配送・注意事項 */}
-        <div className="mt-12 md:mt-16 border-t border-gray-200 pt-8">
+        <div className="mt-8 pt-8">
           <div className="max-w-3xl space-y-4 text-sm text-gray-500 font-body">
             <div className="flex items-start gap-2">
               <svg
@@ -376,7 +439,7 @@ export default function ProductDetailPage({
               </svg>
               <div>
                 <p className="font-medium text-gray-dark">返品・交換について</p>
-                <p>商品到着後7日以内であれば返品・交換を承ります</p>
+                <p>商品到着後7日以内であれば返品・交換を承ります。</p>
               </div>
             </div>
           </div>

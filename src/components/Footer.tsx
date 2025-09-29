@@ -77,24 +77,6 @@ export default function Footer() {
             />
           </a>
         </div>
-
-        {/* 営業情報 */}
-        <div className="text-center mb-8 text-sm md:mb-12 md:text-base">
-          <div className="space-y-2 text-gray-600 font-body">
-            <div className="flex justify-center items-center gap-2">
-              <span className="text-gray-500">営業時間：</span>
-              <span>10:00〜18:00</span>
-            </div>
-            <div className="flex justify-center items-center gap-2">
-              <span className="text-gray-500">定休日：</span>
-              <span>日曜日</span>
-            </div>
-            <p className="text-xs text-gray-500 mt-3 md:text-sm">
-              ※臨時でお休みをいただく場合がございます。
-            </p>
-          </div>
-        </div>
-
         {/* コピーライト */}
         <div className="text-center text-xs text-gray-500 border-t border-brand-gold pt-4 md:text-sm md:pt-8">
           © 2025 Floral Lumina
