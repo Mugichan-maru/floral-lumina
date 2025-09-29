@@ -1,4 +1,4 @@
-// components/Header.tsx - 最適化版
+// components/Header.tsx
 "use client";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,55 +8,59 @@ import { motion, AnimatePresence } from "framer-motion";
 import CartButton from "./Cart/CartButton";
 
 // ハンバーガーアイコンを独立したコンポーネントに分離
-const HamburgerIcon = memo(
-  ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => {
-    const lineVariants = {
-      closed: { rotate: 0, y: 0 },
-      open: (custom: number) => ({
-        rotate: custom === 1 ? 45 : custom === 3 ? -45 : 0,
-        y: custom === 1 ? 8 : custom === 3 ? -8 : 0,
-        opacity: custom === 2 ? 0 : 1,
-      }),
-    };
+const HamburgerIcon = memo(function HamburgerIcon({
+  isOpen,
+  onClick,
+}: {
+  isOpen: boolean;
+  onClick: () => void;
+}) {
+  const lineVariants = {
+    closed: { rotate: 0, y: 0 },
+    open: (custom: number) => ({
+      rotate: custom === 1 ? 45 : custom === 3 ? -45 : 0,
+      y: custom === 1 ? 8 : custom === 3 ? -8 : 0,
+      opacity: custom === 2 ? 0 : 1,
+    }),
+  };
 
-    return (
-      <motion.button
-        className="md:hidden w-6 h-6 flex flex-col justify-center items-center gap-1.5"
-        onClick={onClick}
-        aria-label="Toggle menu"
-        whileTap={{ scale: 0.95 }}
-      >
-        {[1, 2, 3].map((line) => (
-          <motion.span
-            key={line}
-            className="w-6 h-0.5 bg-gray-600 block"
-            variants={lineVariants}
-            initial="closed"
-            animate={isOpen ? "open" : "closed"}
-            custom={line}
-            transition={{ duration: 0.2 }} // 短縮
-          />
-        ))}
-      </motion.button>
-    );
-  }
-);
+  return (
+    <motion.button
+      className="md:hidden w-6 h-6 flex flex-col justify-center items-center gap-1.5"
+      onClick={onClick}
+      aria-label="Toggle menu"
+      whileTap={{ scale: 0.95 }}
+    >
+      {[1, 2, 3].map((line) => (
+        <motion.span
+          key={line}
+          className="w-6 h-0.5 bg-gray-600 block"
+          variants={lineVariants}
+          initial="closed"
+          animate={isOpen ? "open" : "closed"}
+          custom={line}
+          transition={{ duration: 0.2 }} // 短縮
+        />
+      ))}
+    </motion.button>
+  );
+});
 
 // メニューアイテムを独立したコンポーネントに分離
-const MenuItem = memo(
-  ({
-    item,
-    index,
-    onClick,
-  }: {
-    item: { label: string; href: string };
-    index: number;
-    onClick: () => void;
-  }) => (
+const MenuItem = memo(function MenuItem({
+  item,
+  index,
+  onClick,
+}: {
+  item: { label: string; href: string };
+  index: number;
+  onClick: () => void;
+}) {
+  return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.2 }} // delay短縮
+      transition={{ delay: index * 0.05, duration: 0.2 }}
     >
       <Link
         href={item.href}
@@ -66,8 +70,8 @@ const MenuItem = memo(
         {item.label}
       </Link>
     </motion.div>
-  )
-);
+  );
+});
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
