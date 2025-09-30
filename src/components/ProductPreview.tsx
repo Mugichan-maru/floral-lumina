@@ -156,6 +156,7 @@ export default function ProductPreview() {
                             src={product.images[0]}
                             alt={product.title}
                             fill
+                            sizes="(max-width: 768px) 280px, 0px"
                             className="object-cover"
                           />
                         </div>
@@ -197,6 +198,7 @@ export default function ProductPreview() {
                       src={product.images[0]}
                       alt={product.title}
                       fill
+                      sizes="(max-width: 768px) 0px, (max-width: 1536px) 20vw, 240px"
                       className="object-cover hover:scale-110 transition-transform duration-500"
                     />
                   </div>

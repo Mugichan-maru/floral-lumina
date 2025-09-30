@@ -34,7 +34,7 @@ export default function Footer() {
               alt="Floral Lumina ロゴ"
               width={240}
               height={64}
-              className="h-16 w-auto md:h-20"
+              className="h-16 w-auto h-auto md:h-20"
             />
           </div>
         </div>
