@@ -57,7 +57,7 @@ export default function Contact() {
             {/* Online Shopボタン */}
             <Link
               href="/products"
-              className="w-full bg-brand-gold text-white rounded-full px-6 py-2 text-lg font-display tracking-widest hover:bg-opacity-90 transition-all duration-300 shadow-sm flex items-center relative gap-12"
+              className="w-full bg-brand-gold text-white rounded-full px-6 py-2 text-lg font-display tracking-widest hover:bg-opacity-90 transition-all duration-300 shadow-sm flex items-center relative gap-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ export default function Contact() {
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full border-2 border-gray-300 text-gray-text rounded-full px-6 py-2 text-lg font-display tracking-widest hover:border-brand-gold hover:text-brand-gold transition-all duration-300 flex items-center relative gap-12"
+              className="w-full border-2 border-gray-300 text-gray-text rounded-full px-6 py-2 text-lg font-display tracking-widest hover:border-brand-gold hover:text-brand-gold transition-all duration-300 flex items-center relative gap-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
