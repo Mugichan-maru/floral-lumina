@@ -131,4 +131,27 @@ export const products: Record<string, Product> = {
     inStock: true,
     category: "スマホケース",
   },
+  caseOption: {
+    id: "caseOption",
+    title: "ショルダーストラップ対応ケース",
+    price: "¥600",
+    images: [
+      "/icons/option01_1.jpeg",
+      "/icons/option01_2.jpeg",
+      "/icons/option01_3.jpeg",
+      "/icons/option01_4.jpeg",
+      "/icons/option01_5.jpeg",
+      "/icons/option01_6.jpeg",
+      "/icons/option01_7.jpeg",
+    ],
+    description:
+      "作品と一緒に購入いただくことで、ショルダーストラップ対応ケースに変更して制作します。",
+    features: ["背面:PC素材(ハード)", "側面:TPU素材(ソフト)"],
+    colors: [
+      { name: "ゴールド", value: "#FFD700" },
+      { name: "シルバー", value: "#C0C0C0" },
+    ],
+    inStock: true,
+    category: "オプション",
+  },
 };
