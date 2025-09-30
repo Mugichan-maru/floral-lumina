@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { getAllProducts } from "@/utils/productUtils";
 
-// アニメーション用のバリアント
+// シンプルなアニメーション用のバリアント
 const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.08,
     },
   },
 };
@@ -21,15 +21,13 @@ const containerVariants = {
 const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    scale: 0.9,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: "easeOut" as const,
     },
   },
@@ -44,7 +42,7 @@ const titleVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       ease: "easeOut" as const,
     },
   },
@@ -59,7 +57,7 @@ export default function ProductsPage() {
 
       <main className="pt-20 md:pt-24">
         {/* ヘッダーセクション */}
-        <section className="bg-white py-12 md:py-20">
+        <section className="bg-white pt-18 md:py-20">
           <div className="max-w-6xl mx-auto px-4">
             <motion.div
               className="text-center mb-8 md:mb-16"
@@ -96,14 +94,14 @@ export default function ProductsPage() {
               </h1>
               <div className="w-16 h-0.5 bg-brand-gold mx-auto md:w-20"></div>
               <p className="mt-6 text-gray-text font-body text-base md:text-lg">
-                手元を華やかに彩る、季節の花をモチーフにしたスマホケースをご覧ください
+                商品一覧
               </p>
             </motion.div>
           </div>
         </section>
 
         {/* 商品一覧セクション */}
-        <section className="bg-gray-50 py-12 md:py-20">
+        <section className="py-12 md:py-20">
           <div className="max-w-6xl mx-auto px-4">
             {/* 商品グリッド */}
             <motion.div
@@ -115,25 +113,17 @@ export default function ProductsPage() {
               {products.map((product) => (
                 <motion.div
                   key={product.id}
-                  className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                  className="group bg-white transition-shadow duration-300 hover:shadow-lg"
                   variants={itemVariants}
-                  whileHover={{
-                    y: -8,
-                    scale: 1.02,
-                    transition: { duration: 0.3 },
-                  }}
-                  style={{
-                    boxShadow:
-                      "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                  }}
                 >
                   <Link href={`/product/${product.id}`} className="block">
-                    <div className="aspect-[3/4] overflow-hidden rounded-t-xl relative">
+                    <div className="aspect-[3/4] overflow-hidden relative">
                       <Image
                         src={product.images[0]}
                         alt={product.title}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 768px) 176px, 240px"
+                        className="object-cover transition-opacity duration-300 group-hover:opacity-90"
                       />
                     </div>
                     <div className="p-4 md:p-6">
@@ -151,7 +141,7 @@ export default function ProductsPage() {
                           {product.price}
                         </p>
                         {!product.inStock && (
-                          <span className="text-xs text-red-500 font-body bg-red-50 px-2 py-1 rounded">
+                          <span className="text-xs text-red-500 font-body bg-red-50 px-2 py-1">
                             売り切れ
                           </span>
                         )}
@@ -183,47 +173,9 @@ export default function ProductsPage() {
               initial="hidden"
               animate="visible"
               variants={titleVariants}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.6 }}
             >
-              <div className="bg-white rounded-xl p-8 md:p-12 shadow-md max-w-4xl mx-auto">
-                <h2 className="text-xl font-display text-gray-dark mb-4 md:text-2xl">
-                  商品について
-                </h2>
-                <div className="space-y-4 text-sm text-gray-text font-body md:text-base">
-                  <p>
-                    すべての商品は手作業で丁寧に制作されており、一つ一つに個性があります。
-                  </p>
-                  <p>ご注文から発送まで通常2週間程度いただいております。</p>
-                  <p>
-                    ご不明な点がございましたら、お気軽にInstagramよりお問い合わせください。
-                  </p>
-                </div>
-
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
-                  <a
-                    href="https://www.instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 border border-pink-400 text-pink-500 rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-pink-500 hover:text-white transition-colors duration-300"
-                  >
-                    <Image
-                      src="/icons/instagram.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                      className="w-4 h-4"
-                    />
-                    お問い合わせ
-                  </a>
-
-                  <Link
-                    href="/#about"
-                    className="inline-flex items-center justify-center gap-2 border border-brand-gold text-brand-gold rounded-full px-6 py-3 text-sm font-display tracking-wide hover:bg-brand-gold hover:text-white transition-colors duration-300"
-                  >
-                    Luminaについて
-                  </Link>
-                </div>
-              </div>
+              <Contact />
             </motion.div>
           </div>
         </section>

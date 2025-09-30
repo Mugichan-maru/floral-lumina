@@ -56,7 +56,7 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
       <div className="bg-white shadow-sm py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
           <Link
-            href="/"
+            href="/products"
             className="flex items-center gap-2 text-gray-600 hover:text-brand-gold transition-colors"
           >
             <svg
@@ -234,7 +234,7 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
             className="space-y-6 md:space-y-8"
           >
             {/* 商品名・価格 */}
-            <div>
+            <div className="justify-items-center">
               <h1 className="text-2xl md:text-3xl font-body text-gray-dark mb-3">
                 {product.title}
               </h1>
@@ -267,8 +267,11 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
 
             {/* 商品説明 */}
             <div>
+              <h2 className="text-lg font-display text-brand-gold mb-3">
+                商品種
+              </h2>
               <p className="text-gray-text leading-relaxed font-body">
-                {product.description}
+                {product.category}
               </p>
             </div>
 

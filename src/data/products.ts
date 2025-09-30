@@ -26,7 +26,7 @@ export const products: Record<string, Product> = {
       { name: "ピンク", value: "#FFE6F0" },
     ],
     inStock: true,
-    category: "LINE UP",
+    category: "スマホケース",
   },
   margaret: {
     id: "margaret",
@@ -52,7 +52,7 @@ export const products: Record<string, Product> = {
       { name: "ミントグリーン", value: "#E6FFF0" },
     ],
     inStock: true,
-    category: "LINE UP",
+    category: "スマホケース",
   },
   hydrangea: {
     id: "hydrangea",
@@ -78,7 +78,7 @@ export const products: Record<string, Product> = {
       { name: "ピンクグラデーション", value: "#FFE6F0" },
     ],
     inStock: false,
-    category: "LINE UP",
+    category: "スマホケース",
   },
   suzuran: {
     id: "suzuran",
@@ -103,7 +103,7 @@ export const products: Record<string, Product> = {
       { name: "ソフトグリーン", value: "#E6FFE6" },
     ],
     inStock: false,
-    category: "LINE UP",
+    category: "スマホケース",
   },
   sunflower: {
     id: "sunflower",
@@ -129,6 +129,6 @@ export const products: Record<string, Product> = {
       { name: "クリア", value: "#FFFFFF" },
     ],
     inStock: true,
-    category: "LINE UP",
+    category: "スマホケース",
   },
 };
