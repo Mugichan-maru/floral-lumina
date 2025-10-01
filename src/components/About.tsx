@@ -25,7 +25,7 @@ export default function About() {
             variants={fadeInRight}
           >
             <h1 className="text-base text-brand-gold tracking-widest font-display mb-2 md:text-xl">
-              Luminaについて
+              Floral Luminaについて
             </h1>
             <motion.div className="mb-8 md:mb-12" variants={fadeInUp}>
               <h2 className="text-2xl font-display mb-4 text-gray-text md:text-3xl">
@@ -40,9 +40,9 @@ export default function About() {
             >
               <div>
                 <p className="text-lg font-body leading-relaxed  tracking-widest text-brand-gold font-body md:text-xl">
-                  ネイルのように
+                  ネイルのように手元華やぐ
                   <br />
-                  手元が華やぐスマホケース屋さん
+                  スマホケースブランド
                 </p>
               </div>
 
@@ -84,7 +84,7 @@ export default function About() {
               </motion.div>
               <div>
                 <p className="text-base font-display leading-relaxed text-gray-text font-body md:text-base">
-                  丁寧な仕上げと季節感を大切に、
+                  （仮）丁寧な仕上げと季節感を大切に、
                   <br />
                   一つ一つ手作業で制作しています。
                   <br />

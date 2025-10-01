@@ -30,8 +30,8 @@ export default function NewsPage() {
   const displayItems = newsItems.slice(0, itemsPerPage);
 
   // カテゴリー／アーカイブ
-  const categories = ["お知らせ", "ブログ", "商品紹介"];
-  const archives = ["2025.09", "2025.08", "2025.07"];
+  // const categories = ["お知らせ", "ブログ", "商品紹介"];
+  // const archives = ["2025.09", "2025.08", "2025.07"];
 
   return (
     <div className="min-h-screen bg-white">
@@ -58,7 +58,7 @@ export default function NewsPage() {
       <section className="py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4">
           {/* カテゴリー／アーカイブ */}
-          <div className="mb-8 md:mb-12 rounded-md bg-gray-100 px-4 py-6 md:px-6">
+          {/* <div className="mb-8 md:mb-12 rounded-md bg-gray-100 px-4 py-6 md:px-6">
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <div className="text-[13px] tracking-wide font-display text-brand-gold">
@@ -97,7 +97,7 @@ export default function NewsPage() {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* アコーディオン */}
           <div>

@@ -1,14 +1,14 @@
 {
-  "/_not-found/page": "/_not-found",
   "/api/payments/create-intent/route": "/api/payments/create-intent",
+  "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
   "/api/checkout/route": "/api/checkout",
   "/cancel/page": "/cancel",
-  "/products/page": "/products",
   "/checkout/page": "/checkout",
-  "/product/[id]/page": "/product/[id]",
   "/page": "/",
+  "/product/[id]/page": "/product/[id]",
+  "/products/page": "/products",
   "/success/page": "/success",
-  "/news/[id]/page": "/news/[id]",
-  "/news/page": "/news"
+  "/news/page": "/news",
+  "/news/[id]/page": "/news/[id]"
 }

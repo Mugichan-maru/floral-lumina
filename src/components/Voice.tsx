@@ -5,21 +5,18 @@ import { useState } from "react";
 const voices = [
   {
     id: 1,
-    customer: "○○様",
-    product: "スマホケース（アモキネ）",
+    product: "ネモフィラのケース等",
     content:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
   },
   {
     id: 2,
-    customer: "○○様",
     product: "スマホケース（マーガレット）",
     content:
       "とても可愛いデザインで気に入りました。手触りも良く、しっかりとスマホを保護してくれています。季節感のあるデザインが素敵で、持っているだけで気分が上がります。また新作が出たら購入したいと思います。",
   },
   {
     id: 3,
-    customer: "○○様",
     product: "スマホケース（向日葵）",
     content:
       "明るい色合いが夏にぴったりで、とても満足しています。作りも丁寧で、細かい部分まで手作りの温かみを感じられます。友人からも好評で、プレゼントとしてもおすすめしたいです。",
@@ -106,8 +103,8 @@ export default function Voice() {
           <div className="bg-[#F1F1F1] rounded-xl shadow-sm p-6 md:p-8">
             {/* 顧客情報 */}
             <div className="mb-4 border-b border-brand-gold pb-4">
-              <h3 className="text-sm mx-4 font-body text-gray-dark md:text-base">
-                {currentVoice.customer}：{currentVoice.product}
+              <h3 className="text-sm mx-4 flex justify-center font-body text-gray-dark md:text-base">
+                {currentVoice.product}
               </h3>
             </div>
 

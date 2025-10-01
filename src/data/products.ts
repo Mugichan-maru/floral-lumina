@@ -5,7 +5,7 @@ export const products: Record<string, Product> = {
   nemophila: {
     id: "nemophila",
     title: "ネモフィラ",
-    price: "¥3,200",
+    price: "¥3,200~",
     images: [
       "/icons/product1.jpeg",
       "/icons/about1.jpeg",
@@ -31,7 +31,7 @@ export const products: Record<string, Product> = {
   margaret: {
     id: "margaret",
     title: "マーガレット",
-    price: "¥3,200",
+    price: "¥3,200～",
     images: [
       "/icons/product2.jpeg",
       "/icons/about1.jpeg",
@@ -108,7 +108,7 @@ export const products: Record<string, Product> = {
   sunflower: {
     id: "sunflower",
     title: "向日葵",
-    price: "¥3,500",
+    price: "¥3,500～",
     images: [
       "/icons/product5.jpeg",
       "/icons/about1.jpeg",
