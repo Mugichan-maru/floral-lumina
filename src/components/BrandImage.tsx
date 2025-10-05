@@ -64,10 +64,10 @@ export default function BrandImage() {
   };
 
   return (
-    <section className="bg-white pt-16 pb-4 md:py-8 overflow-hidden">
+    <section className="bg-white pt-16 pb-4 md:py-6 lg:py-8 overflow-hidden">
       <div className="mx-auto">
         <motion.div
-          className="relative h-[600px] md:h-[700px]"
+          className="relative h-[600px] lg:h-[700px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -78,7 +78,7 @@ export default function BrandImage() {
             className="absolute top-16 left-0 z-10"
             variants={slideFromLeft}
           >
-            <div className="relative w-80 h-64 md:w-180 md:h-128 overflow-hidden">
+            <div className="relative w-80 h-64 md:w-110 md:h-88 lg:w-180 lg:h-128 overflow-hidden">
               <Image
                 src="/icons/brand-texture-side.svg"
                 alt="ブランドカラーのテクスチャ"
@@ -90,10 +90,10 @@ export default function BrandImage() {
 
           {/* スマホケースを持つ女性 - 右から */}
           <motion.div
-            className="absolute top-0 right-0 md:right-40 z-20"
+            className="absolute top-0 right-0 md:right-12 lg:right-40 z-20"
             variants={slideFromRight}
           >
-            <div className="relative w-70 h-48 md:w-160 md:h-90 overflow-hidden">
+            <div className="relative w-70 h-48 md:w-84 md:h-60 lg:w-160 lg:h-90 overflow-hidden">
               <Image
                 src="/icons/women-use-case.jpeg"
                 alt="スマホケースを持つ女性"
@@ -105,10 +105,10 @@ export default function BrandImage() {
 
           {/* スマホケースコレクション - 下から */}
           <motion.div
-            className="absolute top-64 left-40 md:left-180 transform -translate-x-1/2 z-30"
+            className="absolute top-64 left-40 md:left-70 lg:left-180 transform -translate-x-1/2 z-30"
             variants={slideFromBottom}
           >
-            <div className="relative w-40 h-50 md:w-80 md:h-100 overflow-hidden">
+            <div className="relative w-40 h-50 md:w-52 md:h-68 lg:w-80 lg:h-100 overflow-hidden">
               <Image
                 src="/icons/flower-case-image.jpeg"
                 alt="スマホケースコレクション"
