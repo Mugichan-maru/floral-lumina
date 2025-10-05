@@ -132,7 +132,7 @@ export default function Header() {
         </div>
 
         {/* ナビゲーション（PC用） */}
-        <nav className="hidden md:flex gap-8 text-sm md:text-xl tracking-wide items-center">
+        <nav className="hidden md:flex gap-8 text-sm md:text-lg tracking-wide items-center">
           {menuItems.map((item) => (
             <Link
               href={item.href}

@@ -1,5 +1,5 @@
 // app/page.tsx
-import Header from "@/components/Header";
+// import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ProductPreview from "@/components/ProductPreview";
 import News from "@/components/News";
@@ -9,26 +9,26 @@ import OnlineShopBanner from "@/components/OnlineShopBanner";
 import ShopInfo from "@/components/ShopInfo";
 import Voice from "@/components/Voice";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 import BrandImage from "@/components/BrandImage";
+// import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      <Header />
-      <main>
-        <Hero />
-        <News />
-        <ProductPreview />
-        <OnlineShopBanner />
-        <About />
-        <Charm />
-        <BrandImage />
-        <ShopInfo />
-        <Voice />
-        <Contact />
-      </main>
-      <Footer />
+      {/* <Header /> */}
+      {/* <main> */}
+      <Hero />
+      <News />
+      <ProductPreview />
+      <OnlineShopBanner />
+      <About />
+      <Charm />
+      <BrandImage />
+      <ShopInfo />
+      <Voice />
+      <Contact />
+      {/* </main> */}
+      {/* <Footer /> */}
     </div>
   );
 }

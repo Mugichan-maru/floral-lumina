@@ -18,7 +18,7 @@ const heroImages = [
 
 export default function Hero() {
   return (
-    <section id="top" className="relative mt-20 overflow-hidden md:mt-24">
+    <section id="top" className="relative overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}

@@ -4,6 +4,8 @@ import { Marcellus, Noto_Sans_JP } from "next/font/google";
 import type { Metadata } from "next";
 import { CartProvider } from "@/contexts/CartContext";
 import CartDrawer from "@/components/Cart/CartDrawer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const marcellus = Marcellus({
   subsets: ["latin"],
@@ -38,7 +40,12 @@ export default function RootLayout({
     >
       <body>
         <CartProvider>
-          {children}
+          <Header />
+          <main className="pt-24 md:pt-16">
+            {/* mainタグで囲んでpaddingを追加 */}
+            {children}
+          </main>
+          <Footer />
           <CartDrawer />
         </CartProvider>
       </body>
