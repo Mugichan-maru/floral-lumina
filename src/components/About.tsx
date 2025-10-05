@@ -16,10 +16,10 @@ export default function About() {
     <section id="about" className="bg-white py-12 md:py-20" ref={ref}>
       <div className="max-w-6xl mx-auto px-4">
         {/* モバイル: 縦積み、デスクトップ: 横並び */}
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-16">
+        <div className="flex flex-col gap-8 items-center justify-center md:flex-row md:gap-16">
           {/* テキストエリア */}
           <motion.div
-            className="text-center md:w-1/2 md:text-left"
+            className="text-center max-w-2xl"
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={fadeInRight}
@@ -48,7 +48,7 @@ export default function About() {
 
               {/* 画像エリア */}
               <motion.div
-                className="flex justify-center md:w-1/2"
+                className="flex justify-center"
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
                 variants={fadeInLeft}
