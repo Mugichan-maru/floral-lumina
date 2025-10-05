@@ -113,7 +113,7 @@ export default function Header() {
     <header className="w-full bg-white/95 backdrop-blur-sm shadow-sm fixed top-0 left-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* 左側スペーサー（モバイルでは非表示） */}
-        <div className="hidden md:block w-24"></div>
+        <div className="hidden w-24 md:block md:w-auto"></div>
 
         {/* 中央配置されたロゴ画像 */}
         <div className="flex-1 flex justify-center md:justify-center">
@@ -132,7 +132,7 @@ export default function Header() {
         </div>
 
         {/* ナビゲーション（PC用） */}
-        <nav className="hidden md:flex gap-8 text-sm tracking-wide items-center">
+        <nav className="hidden md:flex gap-8 text-sm md:text-xl tracking-wide items-center">
           {menuItems.map((item) => (
             <Link
               href={item.href}
@@ -154,7 +154,7 @@ export default function Header() {
               alt=""
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="w-4 h-4 md:w-6 md:h-6"
             />
           </a>
 
