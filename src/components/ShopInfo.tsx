@@ -46,7 +46,7 @@ export default function ShopInfo() {
               alt="Floral Lumina ロゴ"
               width={80}
               height={64}
-              className="h-26 md:h-auto w-64"
+              className="w-48 md:w-56 h-auto"
             />
           </div>
 

@@ -20,6 +20,10 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: "Floral Lumina",
   description: "Decorate your hands with flower smartphone case",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({

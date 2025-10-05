@@ -65,7 +65,7 @@ export default function BrandImage() {
 
   return (
     <section className="bg-white pt-16 pb-4 md:py-8 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto">
         <motion.div
           className="relative h-[600px] md:h-[700px]"
           initial="hidden"
@@ -75,10 +75,10 @@ export default function BrandImage() {
         >
           {/* ブランドカラーのテクスチャ - 左から */}
           <motion.div
-            className="absolute top-16 left-0 md:left-8 z-10"
+            className="absolute top-16 left-0 z-10"
             variants={slideFromLeft}
           >
-            <div className="relative w-80 h-64 md:w-56 md:h-72 overflow-hidden">
+            <div className="relative w-80 h-64 md:w-180 md:h-128 overflow-hidden">
               <Image
                 src="/icons/brand-texture-side.svg"
                 alt="ブランドカラーのテクスチャ"
@@ -90,10 +90,10 @@ export default function BrandImage() {
 
           {/* スマホケースを持つ女性 - 右から */}
           <motion.div
-            className="absolute top-0 right-0 md:right-8 z-20"
+            className="absolute top-0 right-0 md:right-40 z-20"
             variants={slideFromRight}
           >
-            <div className="relative w-70 h-48 md:w-48 md:h-56 overflow-hidden">
+            <div className="relative w-70 h-48 md:w-160 md:h-90 overflow-hidden">
               <Image
                 src="/icons/women-use-case.jpeg"
                 alt="スマホケースを持つ女性"
@@ -105,10 +105,10 @@ export default function BrandImage() {
 
           {/* スマホケースコレクション - 下から */}
           <motion.div
-            className="absolute top-64 left-40 transform -translate-x-1/2 z-30"
+            className="absolute top-64 left-40 md:left-180 transform -translate-x-1/2 z-30"
             variants={slideFromBottom}
           >
-            <div className="relative w-40 h-50 md:w-64 md:h-48 overflow-hidden">
+            <div className="relative w-40 h-50 md:w-80 md:h-100 overflow-hidden">
               <Image
                 src="/icons/flower-case-image.jpeg"
                 alt="スマホケースコレクション"
@@ -119,7 +119,7 @@ export default function BrandImage() {
           </motion.div>
 
           {/* 背景装飾要素 */}
-          <motion.div
+          {/* <motion.div
             className="absolute top-1/4 left-1/3 w-32 h-32 bg-brand-gold/10 rounded-full blur-2xl"
             initial={{ scale: 0, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
@@ -133,7 +133,7 @@ export default function BrandImage() {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 1.5, duration: 1.2 }}
-          />
+          /> */}
         </motion.div>
       </div>
     </section>

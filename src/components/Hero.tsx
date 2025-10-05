@@ -20,8 +20,8 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative h-[600px] overflow-hidden"
-      style={{ marginTop: "80px" }}
+      className="relative mt-20 overflow-hidden h-[60svh] md:h-[70svh] lg:h-[80svh] md:mt-24"
+      // style={{ marginTop: "80px" }}
     >
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
@@ -44,8 +44,8 @@ export default function Hero() {
         className="h-full"
       >
         {heroImages.map((image, index) => (
-          <SwiperSlide key={index}>
-            <div className="relative w-full h-full">
+          <SwiperSlide key={index} className="!h-full">
+            <div className="relative w-full h-full md;h-screen">
               <Image
                 src={image}
                 alt={`Hero image ${index + 1}`}
@@ -54,7 +54,7 @@ export default function Hero() {
                 sizes="100vw"
                 className="object-contain"
                 style={{
-                  objectPosition: "center center", // 調整可能: "center top", "center bottom" など
+                  objectPosition: "center center",
                 }}
                 quality={90}
               />
@@ -66,7 +66,7 @@ export default function Hero() {
       </Swiper>
 
       {/* 前へボタン */}
-      <button
+      {/* <button
         className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
         aria-label="前のスライド"
       >
@@ -83,10 +83,10 @@ export default function Hero() {
             d="M15 19l-7-7 7-7"
           />
         </svg>
-      </button>
+      </button> */}
 
       {/* 次へボタン */}
-      <button
+      {/* <button
         className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
         aria-label="次のスライド"
       >
@@ -103,7 +103,7 @@ export default function Hero() {
             d="M9 5l7 7-7 7"
           />
         </svg>
-      </button>
+      </button> */}
 
       {/* テキストコンテンツ */}
       {/* <div className="absolute inset-0 z-10 flex items-center justify-center">
